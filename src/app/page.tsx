@@ -26,7 +26,7 @@ export default async function Home() {
               <h1>File upload components</h1>
             ) : (
               <Link href="/sign-in">
-                <Button>Login to get Start</Button>
+                <Button>Sign-In to get Start</Button>
               </Link>
             )}
           </div>
