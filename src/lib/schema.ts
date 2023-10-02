@@ -1,6 +1,6 @@
 //db schema
 //anything in SQL DB is a pg table
-import { PgTable, integer, pgEnum, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { integer, pgEnum, pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 //enum for role, messages send by who, user for users, system for chatbot reply
 export const enumRole = pgEnum('role',['user','system']);
