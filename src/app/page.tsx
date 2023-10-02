@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { UserButton, auth } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import FileUpload from '@/components/FileUpload';
 
 export default async function Home() {
   const { userId }: { userId: string | null } = await auth();
@@ -23,7 +24,7 @@ export default async function Home() {
 
           <div className="w-full mt-4">
             {isauthenticated ? (
-              <h1>File upload components</h1>
+              <FileUpload />
             ) : (
               <Link href="/sign-in">
                 <Button>Sign-In to get Start</Button>
