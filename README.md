@@ -38,7 +38,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## AWS S3 Config
 
 Bucket policy:
-`{
+
+````{
 "Version": "2012-10-17",
 "Statement": [
 {
@@ -49,10 +50,10 @@ Bucket policy:
 "Resource": "arn:aws:s3:::chatpdf-scottzeta/*"
 }
 ]
-}`
+}```
 
 Cross-origin resource sharing (CORS):
-`[
+```[
     {
         "AllowedHeaders": [
             "*"
@@ -68,6 +69,7 @@ Cross-origin resource sharing (CORS):
         ],
         "ExposeHeaders": []
     }
-]`
+]```
 
 AllowedHeaders like what server can hear, ExposeHeaders is what server can say
+````
