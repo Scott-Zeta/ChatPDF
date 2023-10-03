@@ -39,37 +39,32 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 Bucket policy:
 
-````{
-"Version": "2012-10-17",
-"Statement": [
+```json
 {
-"Sid": "PublicReadGetObject",
-"Effect": "Allow",
-"Principal": "*",
-"Action": "S3:GetObject",
-"Resource": "arn:aws:s3:::chatpdf-scottzeta/*"
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "S3:GetObject",
+      "Resource": "arn:aws:s3:::chatpdf-scottzeta/*"
+    }
+  ]
 }
-]
-}```
+```
 
 Cross-origin resource sharing (CORS):
-```[
-    {
-        "AllowedHeaders": [
-            "*"
-        ],
-        "AllowedMethods": [
-            "PUT",
-            "POST",
-            "DELETE",
-            "GET"
-        ],
-        "AllowedOrigins": [
-            "*"
-        ],
-        "ExposeHeaders": []
-    }
-]```
 
-AllowedHeaders like what server can hear, ExposeHeaders is what server can say
-````
+```json
+[
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["PUT", "POST", "DELETE", "GET"],
+    "AllowedOrigins": ["*"],
+    "ExposeHeaders": []
+  }
+]
+```
+
+AllowedHeaders like what server can hear, ExposeHeaders is what server can say.
