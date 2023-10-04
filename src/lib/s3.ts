@@ -32,7 +32,18 @@ export async function uploadToS3(file:File){
             console.log("Upload Completed",file_key);
         })
 
+        return Promise.resolve({
+            file_key,
+            file_name: file.name,
+            file_type: file.type,
+            file_size: file.size,
+        })
     } catch (error) {
-        
+        console.log(error);
     }
+}
+
+//access the url in s3 from file_key
+export function getS3Url(file_key:string){
+    return `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_S3_BUCKET_REGION}.amazonaws.com/${file_key}`
 }
