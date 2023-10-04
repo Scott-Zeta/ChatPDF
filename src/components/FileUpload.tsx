@@ -5,6 +5,8 @@ import { Inbox } from 'lucide-react';
 import { uploadToS3 } from '@/lib/s3';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+//call the toast without using toast hooks
+import { toast } from './ui/use-toast';
 
 const FileUpload = () => {
   //hit the api to create chat when finish upload
@@ -31,7 +33,11 @@ const FileUpload = () => {
       console.log(acceptedFiles);
       const file = acceptedFiles[0];
       if (file.size > 10 * 1024 * 1024) {
-        alert('File size is too large');
+        toast({
+          variant: 'destructive',
+          title: 'Upload failed',
+          description: 'File size must be less than 10MB',
+        });
         return;
       }
 
@@ -39,7 +45,11 @@ const FileUpload = () => {
       try {
         const data = await uploadToS3(file);
         if (!data?.file_key || !data?.file_name) {
-          alert('Error uploading file');
+          toast({
+            variant: 'destructive',
+            title: 'Upload failed',
+            description: 'Could not get valid file key or file name',
+          });
           return;
         }
         mutate(data, {
@@ -50,8 +60,16 @@ const FileUpload = () => {
             console.log(error);
           },
         });
+        toast({
+          title: 'Upload Complete',
+          description: 'You will soon be redirected to the chat',
+        });
       } catch (error) {
-        console.log(error);
+        toast({
+          variant: 'destructive',
+          title: 'Chat creation failed',
+          description: `${error}`,
+        });
       }
     },
   });
