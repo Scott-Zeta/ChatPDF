@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "export NODE_OPTIONS='--max-old-space-size=8192' && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -21,8 +21,10 @@
     "clsx": "^2.0.0",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.6",
+    "langchain": "^0.0.161",
     "lucide-react": "^0.279.0",
     "next": "latest",
+    "pdf-parse": "^1.1.1",
     "pg": "^8.11.3",
     "react": "latest",
     "react-dom": "latest",

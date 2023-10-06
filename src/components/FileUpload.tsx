@@ -58,14 +58,19 @@ const FileUpload = () => {
         mutate(data, {
           onSuccess: (data) => {
             console.log(data);
+            toast({
+              title: 'Upload Complete',
+              description: 'You will soon be redirected to the chat',
+            });
           },
           onError: (error) => {
             console.log(error);
+            toast({
+              variant: 'destructive',
+              title: 'Can not fetching Data',
+              description: `${error}`,
+            });
           },
-        });
-        toast({
-          title: 'Upload Complete',
-          description: 'You will soon be redirected to the chat',
         });
       } catch (error) {
         toast({

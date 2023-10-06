@@ -20,7 +20,7 @@ export  async function downloadFromS3(file_key: string){
         //get the file from the s3 bucket
         const obj = await s3.getObject(params).promise();
         //save the file to the local(server) storage
-        const file_path = `/tmp/${Date.now()}-${file_key}.pdf`
+        const file_path = `/tmp/${Date.now()}.pdf`
         //Buffer as variable type of file's body
         fs.writeFileSync(file_path, obj.Body as Buffer);
         return file_path;
