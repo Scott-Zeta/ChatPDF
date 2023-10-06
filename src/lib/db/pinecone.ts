@@ -17,11 +17,20 @@ export const getPineconeClietn = async () => {
 }
 
 //data processing
+
+type PDFPage = {
+    pageContent: string;
+    metadata:{
+        loc:{pageNumbernumber:number};
+    }
+}
+
 export async function processingForPinecone(file_key:string){
     //1. download from s3 and read the pdf
     const file_path = await downloadFromS3(file_key)
     if(!file_path) throw new Error("file not found in S3")
     const loader = new PDFLoader(file_path)
-    const pages = loader.load()
+    const pages = (await loader.load()) as PDFPage[]
+
     return pages
 }

@@ -24,6 +24,7 @@ const FileUpload = () => {
         file_key,
         file_name,
       });
+      setUploading(false);
       return response.data;
     },
   });
@@ -78,7 +79,6 @@ const FileUpload = () => {
           title: 'Chat creation failed',
           description: `${error}`,
         });
-      } finally {
         setUploading(false);
       }
     },
