@@ -1,8 +1,11 @@
-import { PineconeClient } from "@pinecone-database/pinecone";
+import { PineconeClient, Vector, utils as PineconeUtils } from "@pinecone-database/pinecone";
 import { downloadFromS3 } from "./s3-server";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter, Document } from "@pinecone-database/doc-splitter";
 import { parse } from "path";
+import { getEmbedding } from "./embeddings";
+import md5 from "md5";
+import { convertToAscii } from "./utils";
 
 let pinecone: PineconeClient | null = null;
 
@@ -33,12 +36,22 @@ export async function processingForPinecone(file_key:string){
     if(!file_path) throw new Error("file not found in S3")
     const loader = new PDFLoader(file_path)
     const pages = (await loader.load()) as PDFPage[]
+    
     //2. parse the pdf string
     //considering to convert into single page to prevent paragraph cross multiple pages.
     const paragraphs = await Promise.all(pages.map(parseDocumnet))
-    //3. convert paragraphs into vector pinecon accpetable
     
-    return paragraphs
+    //3. convert paragraphs into vector pinecon accpetable by openai model
+    const vectors = await Promise.all(paragraphs.flat().map(embeddingParagraph))
+
+    // //4. upload to pinecone
+    // const client = await getPineconeClietn()
+    // const pineconeIndex = await client.Index(process.env.PINEONE_INDEX!)
+
+    // console.log('uploading vector to pinecone')
+    // const namespace = convertToAscii(file_key)
+    // PineconeUtils.chunkedUpsert(pineconeIndex, vectors, namespace, 10)
+    return vectors
 }
 
 // export const truncateStringByBytes = (str:string, bytes:number) => {
@@ -49,7 +62,7 @@ export async function processingForPinecone(file_key:string){
 //parse the pdf string
 async function parseDocumnet(page: PDFPage){
     let {pageContent, metadata} = page
-    pageContent = pageContent.replace(/\n/g, "")
+    pageContent = pageContent.replace(/\n/g, " ")
     //define splitter for content
     const splitter = new RecursiveCharacterTextSplitter()
     const paragraph = await splitter.splitDocuments([
@@ -63,4 +76,23 @@ async function parseDocumnet(page: PDFPage){
         })
     ])
     return paragraph
+}
+
+//embedding the paragraph
+async function embeddingParagraph(paragraph: Document){
+    try {
+        const embeddings = await getEmbedding(paragraph.pageContent)
+        const hash = md5(paragraph.pageContent)
+        return {
+            id:hash,
+            values: embeddings,
+            metadata: {
+                ...paragraph.metadata,
+                text: paragraph.pageContent,
+            }
+        } as Vector
+    } catch (error) {
+        console.error("embedding error: ", error)
+        throw error
+    }
 }
