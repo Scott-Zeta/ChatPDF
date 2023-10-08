@@ -38,10 +38,10 @@ export async function processingForPinecone(file_key:string){
     return paragraphs
 }
 
-export const truncateStringByBytes = (str:string, bytes:number) => {
-    const enc = new TextEncoder()
-    return new TextDecoder('utf-8').decode(enc.encode(str).slice(0, bytes))
-}
+// export const truncateStringByBytes = (str:string, bytes:number) => {
+//     const enc = new TextEncoder()
+//     return new TextDecoder('utf-8').decode(enc.encode(str).slice(0, bytes))
+// }
 
 //parse the pdf string
 async function parseDocumnet(page: PDFPage){
@@ -55,7 +55,7 @@ async function parseDocumnet(page: PDFPage){
             metadata:{
                 ...metadata,
                 pageNumber: metadata.loc.pageNumber,
-                text: truncateStringByBytes(pageContent, 3600)
+                // text: truncateStringByBytes(pageContent, 3600)
             }
         })
     ])
