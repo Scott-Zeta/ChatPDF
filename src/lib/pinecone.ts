@@ -34,7 +34,10 @@ export async function processingForPinecone(file_key:string){
     const loader = new PDFLoader(file_path)
     const pages = (await loader.load()) as PDFPage[]
     //2. parse the pdf string
+    //considering to convert into single page to prevent paragraph cross multiple pages.
     const paragraphs = await Promise.all(pages.map(parseDocumnet))
+    //3. convert paragraphs into vector pinecon accpetable
+    
     return paragraphs
 }
 

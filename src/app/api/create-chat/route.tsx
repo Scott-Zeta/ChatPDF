@@ -1,4 +1,4 @@
-import { processingForPinecone } from '@/lib/db/pinecone';
+import { processingForPinecone } from '@/lib/pinecone';
 import { NextResponse } from 'next/server';
 
 // /api/create-chat api route
