@@ -1,4 +1,4 @@
-import { PineconeClient, Vector, utils as PineconeUtils } from "@pinecone-database/pinecone";
+import { Pinecone, PineconeRecord } from "@pinecone-database/pinecone";
 import { downloadFromS3 } from "./s3-server";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter, Document } from "@pinecone-database/doc-splitter";
@@ -7,18 +7,12 @@ import { getEmbedding } from "./embeddings";
 import md5 from "md5";
 import { convertToAscii } from "./utils";
 
-let pinecone: PineconeClient | null = null;
-
 //connect to pinecone db
-export const getPineconeClietn = async () => {
-    if(!pinecone){
-        pinecone = new PineconeClient()
-        await pinecone.init({
-            environment: process.env.PINECONE_ENVIRONMENT!,
-            apiKey: process.env.PINECONE_API_KEY!,
-        })
-    }
-    return pinecone;
+export const getPineconeClient = async () => {
+    return new Pinecone({
+        environment: process.env.PINECONE_ENVIRONMENT!,
+        apiKey: process.env.PINECONE_API_KEY!,
+    })
 }
 
 //data processing
@@ -39,18 +33,19 @@ export async function processingForPinecone(file_key:string){
     
     //2. parse the pdf string
     //considering to convert into single page to prevent paragraph cross multiple pages.
-    const paragraphs = await Promise.all(pages.map(parseDocumnet))
+    const paragraphs = await Promise.all(pages.map(parseDocument))
     
     //3. convert paragraphs into vector pinecon accpetable by openai model
     const vectors = await Promise.all(paragraphs.flat().map(embeddingParagraph))
 
-    // //4. upload to pinecone
-    // const client = await getPineconeClietn()
-    // const pineconeIndex = await client.Index(process.env.PINEONE_INDEX!)
-
-    // console.log('uploading vector to pinecone')
-    // const namespace = convertToAscii(file_key)
-    // PineconeUtils.chunkedUpsert(pineconeIndex, vectors, namespace, 10)
+    //4. upload to pinecone
+    const client = await getPineconeClient()
+    const pineconeIndex = await client.index(process.env.PINECONE_INDEX!)
+    // const namespace = pineconeIndex.namespace(convertToAscii(file_key))
+    console.log('uploading vector to pinecone')
+    // await namespace.upsert(vectors)
+    //???????????
+    await pineconeIndex.fetch(['test'])
     return vectors
 }
 
@@ -60,7 +55,7 @@ export async function processingForPinecone(file_key:string){
 // }
 
 //parse the pdf string
-async function parseDocumnet(page: PDFPage){
+async function parseDocument(page: PDFPage){
     let {pageContent, metadata} = page
     pageContent = pageContent.replace(/\n/g, " ")
     //define splitter for content
@@ -87,10 +82,9 @@ async function embeddingParagraph(paragraph: Document){
             id:hash,
             values: embeddings,
             metadata: {
-                ...paragraph.metadata,
-                text: paragraph.pageContent,
+                text: paragraph.pageContent
             }
-        } as Vector
+        } as PineconeRecord
     } catch (error) {
         console.error("embedding error: ", error)
         throw error
