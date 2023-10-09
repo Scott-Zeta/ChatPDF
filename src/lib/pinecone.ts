@@ -43,9 +43,8 @@ export async function processingForPinecone(file_key:string){
     const pineconeIndex = await client.index(process.env.PINECONE_INDEX!)
     // const namespace = pineconeIndex.namespace(convertToAscii(file_key))
     console.log('uploading vector to pinecone')
-    // await namespace.upsert(vectors)
+    await pineconeIndex.upsert(vectors)
     //???????????
-    await pineconeIndex.fetch(['test'])
     return vectors
 }
 
