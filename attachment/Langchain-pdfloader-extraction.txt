@@ -1,0 +1,370 @@
+[
+    {
+        "pageContent": "Bupa A\nustralia\nNothing is mor\ne important t\no us than pr\noviding our\nmembers with quality c\norpor\nate health insur\nanc\ne.\nThat’s wh\ny w\ne’v\ne t\neamed up with Univ\nersity of\nAdelaide - De\nvelopment & Alumni, so y\nou can ac\ncess\na r\nange of health and w\nellnes\ns servic\nes as w\nell as\ngreat c\norpor\nate disc\nounts t\no help y\nou liv\ne a longer\n,\nhealthier\n, happier lif\ne.\nAs a Bupa member\n, you can look f\norw\nard t\no:\nComplimentary ac\ncess to ‘After Hours Plus’ fr\nom Na\ntional\nHome Doct\nor Servic\ne. This means when y\nou book an\naft\ner hours, bulk\n-billed doct\nor home visit, the doct\nor ma\ny\nprescribe c\nommon medica\ntions, on the spot, a\nt no char\nge\nto y\nou. F\nor mor\ne inf\norma\ntion and c\noverage ar\neas visit\nbupa.\ncom.au/aft\nerhoursplus\nBupa Lif\ne Skills – online int\neractiv\ne ses\nsions t\no help y\nou\nbett\ner handle lif\ne’s daily challenges, c\novering t\nopics such\nas s\ntress, w\nork\n-lif\ne balanc\ne and positiv\ne par\nenting. V\nisit\nbupa.\ncom.au/c\norpor\natelif\neskills\nWe will c\nover the c\nost of y\nour kids on mos\nt dental,\nph\nysio\n, chir\no, podia\ntry c\nonsulta\ntions, and select\ned optical\npack\nages a\nt Members Firs\nt pr\noviders, up t\no y\nearly limits.\n#\nA\n2% disc\nount on y\nour health c\nover\n+\nMy\nself\nMy\nself and m\ny partner\nMy f\namily\nOur Bupa c\nonsultants ar\ne her\ne t\no help\n, if y\nou\nwould lik\ne t\no find out mor\ne, please c\nomplet\ne\nthe f\norm belo\nw and email it t\no y\nour Bupa\nrepr\nesenta\ntiv\ne.\nYour c\nompan\ny r\neferenc\ne number is\n210540\n1\nI'd lik\ne t\no enquir\ne about c\nover f\nor:\nIf y\nou ar\ne alr\neady a Bupa member\n, please\nprovide y\nour member number:\nFirs\nt name:\nLas\nt name:\nPhone number:\nEmail:\nMember number:\nTo sign up t\no y\nour health plan\n134 13\n5\nand quot\ne ID 210540\n1\nbupa.\ncom.au/\ncorpor\nate\nuser: CPUniA\ndelaide\npas\nsword: cphealth\nsales@\nbupa.\ncom.au\nVisit y\nour local\nBupa c\nentr\ne\n#\nFor\nmos\nt\nitems\ncovering\ndental,\nph\nysio\n,\nchir\no,\npodia\ntry\nconsulta\ntions\nand\nselect\ned\noptical\npack\nages.\nAvailable\non\nour\nfamily\npack\nages,\nUltima\nte\nHealth\nCover,\nSilv\ner,\nGold\n&\nPla\ntinum\nExtr\nas\nwhen\ntak\nen\nwith\nhospital\ncover\non\na\nfamily\nmembership\n.\nFund\nand\npolic\ny\nrules\nand\nwaiting\nperiods\napply\n.\nChild\ndependants\nonly\n.\nEx\ncludes\northodontics\nand\nhospital\ntreatments.\nSet\nbenefits\napply\nat\nother\nrecognised\nproviders.\n+Disc\nount\nis\nrevie\nwed\nperiodically\nby\nBupa\nand\nyour\nCompan\ny\nand\nis\nsubject\nto\nchange\n.\nMus\nt\npa\ny\nby\ndir\nect\ndebit\nor\npa\nyroll\ndeduction\n(if\navailable\n).\nBupa\nHI\nPty\nLtd\nABN\n81\n000\n05\n7 5\n90 (8V\nZX\n-KABJ).\nCorpor\nate c\nover t\no\nsuit y\nour needs",
+        "metadata": {
+            "source": "/tmp/1696916864953.pdf",
+            "pdf": {
+                "version": "1.10.100",
+                "info": {
+                    "PDFFormatVersion": "1.4",
+                    "IsAcroFormPresent": false,
+                    "IsXFAPresent": false,
+                    "Producer": "Prince 20150210 (www.princexml.com)",
+                    "CreationDate": "D:20171121121355+10'30'",
+                    "ModDate": "D:20171121121355+10'30'"
+                },
+                "metadata": {
+                    "_metadata": {
+                        "pdf:producer": "Prince 20150210 (www.princexml.com)",
+                        "xmp:modifydate": "2017-11-21T12:13:55+10:30",
+                        "xmp:createdate": "2017-11-21T12:13:55+10:30",
+                        "xmp:metadatadate": "2017-11-21T12:13:55+10:30",
+                        "xmpmm:documentid": "uuid:da5cff84-176c-4fea-9a60-6e4c75ca021c",
+                        "xmpmm:instanceid": "uuid:6fa3b6ef-45f7-4f2b-b896-f9213277cd66",
+                        "dc:format": "application/pdf"
+                    }
+                },
+                "totalPages": 1
+            },
+            "loc": {
+                "pageNumber": 1
+            }
+        }
+    }
+]
+
+"Bupa A
+ustralia
+Nothing is mor
+e important t
+o us than pr
+oviding our
+members with quality c
+orpor
+ate health insur
+anc
+e.
+That’s wh
+y w
+e’v
+e t
+eamed up with Univ
+ersity of
+Adelaide - De
+velopment & Alumni, so y
+ou can ac
+cess
+a r
+ange of health and w
+ellnes
+s servic
+es as w
+ell as
+great c
+orpor
+ate disc
+ounts t
+o help y
+ou liv
+e a longer
+,
+healthier
+, happier lif
+e.
+As a Bupa member
+, you can look f
+orw
+ard t
+o:
+Complimentary ac
+cess to ‘After Hours Plus’ fr
+om Na
+tional
+Home Doct
+or Servic
+e. This means when y
+ou book an
+aft
+er hours, bulk
+-billed doct
+or home visit, the doct
+or ma
+y
+prescribe c
+ommon medica
+tions, on the spot, a
+t no char
+ge
+to y
+ou. F
+or mor
+e inf
+orma
+tion and c
+overage ar
+eas visit
+bupa.
+com.au/aft
+erhoursplus
+Bupa Lif
+e Skills – online int
+eractiv
+e ses
+sions t
+o help y
+ou
+bett
+er handle lif
+e’s daily challenges, c
+overing t
+opics such
+as s
+tress, w
+ork
+-lif
+e balanc
+e and positiv
+e par
+enting. V
+isit
+bupa.
+com.au/c
+orpor
+atelif
+eskills
+We will c
+over the c
+ost of y
+our kids on mos
+t dental,
+ph
+ysio
+, chir
+o, podia
+try c
+onsulta
+tions, and select
+ed optical
+pack
+ages a
+t Members Firs
+t pr
+oviders, up t
+o y
+early limits.
+#
+A
+2% disc
+ount on y
+our health c
+over
++
+My
+self
+My
+self and m
+y partner
+My f
+amily
+Our Bupa c
+onsultants ar
+e her
+e t
+o help
+, if y
+ou
+would lik
+e t
+o find out mor
+e, please c
+omplet
+e
+the f
+orm belo
+w and email it t
+o y
+our Bupa
+repr
+esenta
+tiv
+e.
+Your c
+ompan
+y r
+eferenc
+e number is
+210540
+1
+I'd lik
+e t
+o enquir
+e about c
+over f
+or:
+If y
+ou ar
+e alr
+eady a Bupa member
+, please
+provide y
+our member number:
+Firs
+t name:
+Las
+t name:
+Phone number:
+Email:
+Member number:
+To sign up t
+o y
+our health plan
+134 13
+5
+and quot
+e ID 210540
+1
+bupa.
+com.au/
+corpor
+ate
+user: CPUniA
+delaide
+pas
+sword: cphealth
+sales@
+bupa.
+com.au
+Visit y
+our local
+Bupa c
+entr
+e
+#
+For
+mos
+t
+items
+covering
+dental,
+ph
+ysio
+,
+chir
+o,
+podia
+try
+consulta
+tions
+and
+select
+ed
+optical
+pack
+ages.
+Available
+on
+our
+family
+pack
+ages,
+Ultima
+te
+Health
+Cover,
+Silv
+er,
+Gold
+&
+Pla
+tinum
+Extr
+as
+when
+tak
+en
+with
+hospital
+cover
+on
+a
+family
+membership
+.
+Fund
+and
+polic
+y
+rules
+and
+waiting
+periods
+apply
+.
+Child
+dependants
+only
+.
+Ex
+cludes
+orthodontics
+and
+hospital
+treatments.
+Set
+benefits
+apply
+at
+other
+recognised
+providers.
++Disc
+ount
+is
+revie
+wed
+periodically
+by
+Bupa
+and
+your
+Compan
+y
+and
+is
+subject
+to
+change
+.
+Mus
+t
+pa
+y
+by
+dir
+ect
+debit
+or
+pa
+yroll
+deduction
+(if
+available
+).
+Bupa
+HI
+Pty
+Ltd
+ABN
+81
+000
+05
+7 5
+90 (8V
+ZX
+-KABJ).
+Corpor
+ate c
+over t
+o
+suit y
+our needs"
