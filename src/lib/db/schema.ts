@@ -18,6 +18,9 @@ export const chats = pgTable('chats',{
     //refer to AWS S3 bucket
 })
 
+//export the type of chats(as a new costom variable include the info in schema)
+export type DrizzleChat = typeof chats.$inferSelect
+
 //schema for each message
 export const messages = pgTable('messages',{
     id: serial('id').primaryKey(),
