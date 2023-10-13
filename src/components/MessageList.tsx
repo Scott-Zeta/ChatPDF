@@ -11,13 +11,18 @@ type Props = {
 const MessageList = ({ messages }: Props) => {
   //scroll to bottom when new message comes
   const messageEndRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (messageEndRef.current) {
-      messageEndRef.current?.scrollIntoView({
-        block: 'end',
-        behavior: 'smooth',
-      });
+    if (messageEndRef.current && containerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 50;
+      if (atBottom) {
+        messageEndRef.current?.scrollIntoView({
+          block: 'end',
+          behavior: 'smooth',
+        });
+      }
     }
   }, [messages]);
   if (!messages)
@@ -25,7 +30,10 @@ const MessageList = ({ messages }: Props) => {
       <div className="flex flex-grow max-h-screen overflow-scroll flex-col gap-2 px-4 pb-2"></div>
     );
   return (
-    <div className="flex flex-grow max-h-screen overflow-scroll flex-col gap-2 px-4 pb-2">
+    <div
+      ref={containerRef}
+      className="flex flex-grow max-h-screen overflow-scroll flex-col gap-2 px-4 pb-2"
+    >
       {messages.map((message) => {
         return (
           <div
