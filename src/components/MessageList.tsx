@@ -7,9 +7,12 @@ type Props = {
 };
 
 const MessageList = ({ messages }: Props) => {
-  if (!messages) return <></>;
+  if (!messages)
+    return (
+      <div className="flex max-h-screen overflow-scroll flex-col gap-2 px-4 pb-2"></div>
+    );
   return (
-    <div className="flex flex-col gap-2 px-4">
+    <div className="flex max-h-screen overflow-scroll flex-col gap-2 px-4 pb-2">
       {messages.map((message) => {
         return (
           <div

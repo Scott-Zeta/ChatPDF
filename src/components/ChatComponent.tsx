@@ -16,7 +16,7 @@ const ChatComponent = (props: Props) => {
   });
   return (
     <div
-      className="relative min-h-screen overflow-scroll"
+      className="relative max-h-screen h-screen flex flex-col overflow-scroll"
       id="message-container"
     >
       {/* header */}
@@ -24,11 +24,13 @@ const ChatComponent = (props: Props) => {
         <h3 className="text-xl font-bold">Chat</h3>
       </div>
       {/* message list */}
-      <MessageList messages={messages} />
+      <div className="flex-grow overflow-scroll">
+        <MessageList messages={messages} />
+      </div>
       {/* input form */}
       <form
         onSubmit={handleSubmit}
-        className="sticky bottom-0 inset-x-0 px-2 py-4 bg-white"
+        className="sticky bottom-0 inset-x-0 px-2 my-2 bg-white"
       >
         <div className="flex">
           <Input
