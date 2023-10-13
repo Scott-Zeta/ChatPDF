@@ -4,12 +4,13 @@ import { Input } from './ui/input';
 import { useChat } from 'ai/react';
 import { Button } from './ui/button';
 import { Send } from 'lucide-react';
+import MessageList from './MessageList';
 
 type Props = {};
 
 const ChatComponent = (props: Props) => {
   //input state manager by ai/react
-  const { input, handleInputChange, handleSubmit } = useChat();
+  const { input, handleInputChange, handleSubmit, messages } = useChat();
   return (
     <div
       className="relative min-h-screen overflow-scroll"
@@ -20,6 +21,8 @@ const ChatComponent = (props: Props) => {
         <h3 className="text-xl font-bold">Chat</h3>
       </div>
       {/* message list */}
+      <MessageList messages={messages} />
+      {/* input form */}
       <form
         onSubmit={handleSubmit}
         className="sticky bottom-0 inset-x-0 px-2 py-4 bg-white"
