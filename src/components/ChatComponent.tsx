@@ -14,6 +14,7 @@ const ChatComponent = (props: Props) => {
     //api call when hit the input, send the message to route, see src/app/api/chat/route.tsx
     api: '/api/chat',
   });
+
   return (
     <div
       className="relative max-h-screen h-screen flex flex-col overflow-scroll"
@@ -24,9 +25,7 @@ const ChatComponent = (props: Props) => {
         <h3 className="text-xl font-bold">Chat</h3>
       </div>
       {/* message list */}
-      <div className="flex-grow overflow-scroll">
-        <MessageList messages={messages} />
-      </div>
+      <MessageList messages={messages} />
       {/* input form */}
       <form
         onSubmit={handleSubmit}

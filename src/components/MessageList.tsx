@@ -1,18 +1,31 @@
+'use client';
 import { cn } from '@/lib/utils';
 import { Message } from 'ai/react';
 import React from 'react';
+import { useEffect, useRef } from 'react';
 
 type Props = {
   messages: Message[];
 };
 
 const MessageList = ({ messages }: Props) => {
+  //scroll to bottom when new message comes
+  const messageEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current?.scrollIntoView({
+        block: 'end',
+        behavior: 'smooth',
+      });
+    }
+  }, [messages]);
   if (!messages)
     return (
-      <div className="flex max-h-screen overflow-scroll flex-col gap-2 px-4 pb-2"></div>
+      <div className="flex flex-grow max-h-screen overflow-scroll flex-col gap-2 px-4 pb-2"></div>
     );
   return (
-    <div className="flex max-h-screen overflow-scroll flex-col gap-2 px-4 pb-2">
+    <div className="flex flex-grow max-h-screen overflow-scroll flex-col gap-2 px-4 pb-2">
       {messages.map((message) => {
         return (
           <div
@@ -35,6 +48,7 @@ const MessageList = ({ messages }: Props) => {
           </div>
         );
       })}
+      <div ref={messageEndRef}></div>
     </div>
   );
 };
