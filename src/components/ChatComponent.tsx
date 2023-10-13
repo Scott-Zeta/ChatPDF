@@ -10,7 +10,10 @@ type Props = {};
 
 const ChatComponent = (props: Props) => {
   //input state manager by ai/react
-  const { input, handleInputChange, handleSubmit, messages } = useChat();
+  const { input, handleInputChange, handleSubmit, messages } = useChat({
+    //api call when hit the input, send the message to route, see src/app/api/chat/route.tsx
+    api: '/api/chat',
+  });
   return (
     <div
       className="relative min-h-screen overflow-scroll"
