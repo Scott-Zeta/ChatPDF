@@ -13,7 +13,7 @@ export async function getMatchesFromEmbeddings(
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      'Api-Key': '***REMOVED***',
+      'Api-Key': `${process.env.PINECONE_API_KEY}`,
     },
     data: {
       includeValues: false,
