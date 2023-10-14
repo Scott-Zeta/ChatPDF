@@ -1,5 +1,6 @@
 import axios from "axios";
 import { convertToAscii } from "./utils";
+import { getEmbedding } from "./embeddings";
 
 export async function getMatchesFromEmbeddings(embeddings: number[], file_key:string) {
     const namespace = convertToAscii(file_key)
@@ -16,19 +17,32 @@ export async function getMatchesFromEmbeddings(embeddings: number[], file_key:st
             includeMetadata: true,
             namespace: namespace,
             topK: 8,
-        vector: embeddings,
+            vector: embeddings,
         }
     };
-    axios
-        .request(options)
-        .then(function (response) {
-        console.log(response.data);
+    // axios
+    //     .request(options)
+    //     .then(function (response) {
+    //         console.log(response.data);
+    //         // return response.data
+    //     })
+    //     .catch(function (error) {
+    //         console.error("Get context Error: ", error);
+    //     });
+    try {
+        const res = await fetch(options.url, {
+            method: 'POST',
+            headers: options.headers,
+            body: JSON.stringify(options.data)
         })
-        .catch(function (error) {
+        const data = await res.json()
+        console.log(data)
+    } catch (error) {
         console.error("Get context Error: ", error);
-        });
+    }
 }
 
 export async function getContext(query: string, file_key:string) {
-    
+    const queryEmbeddings = await getEmbedding(query)
+    const matchesVectors = await getMatchesFromEmbeddings(queryEmbeddings, file_key)
 }

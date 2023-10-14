@@ -6,13 +6,16 @@ import { Button } from './ui/button';
 import { Send } from 'lucide-react';
 import MessageList from './MessageList';
 
-type Props = {};
+type Props = { chatId: number };
 
-const ChatComponent = (props: Props) => {
+const ChatComponent = ({ chatId }: Props) => {
   //input state manager by ai/react
   const { input, handleInputChange, handleSubmit, messages } = useChat({
     //api call when hit the input, send the message to route, see src/app/api/chat/route.tsx
     api: '/api/chat',
+    body: {
+      chatId,
+    },
   });
 
   return (

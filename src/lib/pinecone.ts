@@ -39,34 +39,29 @@ export async function processingForPinecone(file_key:string){
     const vectors = await Promise.all(paragraphs.flat().map(embeddingParagraph))
 
    //4. Since the bug confirmed in Pinecone SDK, use axios do api call
-   try {
-        const options = {
-            method: 'POST',
-            url: `${process.env.PINECONE_HOST}/vectors/upsert`,
-            headers: {
-            accept: 'application/json', 
-            'content-type': 'application/json',
-            'Api-Key': `${process.env.PINECONE_API_KEY}`
+    const options = {
+        method: 'POST',
+        url: `${process.env.PINECONE_HOST}/vectors/upsert`,
+        headers: {
+        accept: 'application/json', 
+        'content-type': 'application/json',
+        'Api-Key': `${process.env.PINECONE_API_KEY}`
         },
-            data: {
+        data: {
             vectors: vectors,
             namespace: convertToAscii(file_key)
-            }
-        };
-        axios
-            .request(options)
-            .then(function (response) {
-            console.log(response.data);
-            })
-            .catch(function (error) {
-            console.error(error);
-            });
+        }
+    };
+    axios
+        .request(options)
+        .then(function (response) {
+        console.log(response.data);
+        })
+        .catch(function (error) {
+        console.error("Upload to pinecone error: ", error);
+        });
         
-        return vectors
-   } catch (error) {
-        console.error("Upload to pinecone error: ", error)
-        throw error
-   }
+    return vectors
 }
 
 // export const truncateStringByBytes = (str:string, bytes:number) => {
