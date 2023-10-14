@@ -2,9 +2,9 @@ import { Pinecone, PineconeRecord } from "@pinecone-database/pinecone";
 import { downloadFromS3 } from "./s3-server";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter, Document } from "@pinecone-database/doc-splitter";
-import { parse } from "path";
 import { getEmbedding } from "./embeddings";
 import md5 from "md5";
+import axios from "axios";
 import { convertToAscii } from "./utils";
 
 //connect to pinecone db
@@ -38,13 +38,29 @@ export async function processingForPinecone(file_key:string){
     //3. convert paragraphs into vector pinecon accpetable by openai model
     const vectors = await Promise.all(paragraphs.flat().map(embeddingParagraph))
 
-    //4. upload to pinecone
-    const client = await getPineconeClient()
-    const pineconeIndex = await client.index(process.env.PINECONE_INDEX!)
-    // const namespace = pineconeIndex.namespace(convertToAscii(file_key))
-    console.log('uploading vector to pinecone')
-    await pineconeIndex.upsert(vectors)
-    //???????????
+   //4. Since the bug confirmed in Pinecone SDK, use axios do api call
+   const options = {
+     method: 'POST',
+     url: `${process.env.PINECONE_HOST}/vectors/upsert`,
+     headers: {
+        accept: 'application/json', 
+        'content-type': 'application/json',
+        'Api-Key': `${process.env.PINECONE_API_KEY}`
+    },
+     data: {
+       vectors: vectors,
+       namespace: convertToAscii(file_key)
+     }
+   };
+   axios
+     .request(options)
+     .then(function (response) {
+       console.log(response.data);
+     })
+     .catch(function (error) {
+       console.error(error);
+     });
+   
     return vectors
 }
 

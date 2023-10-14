@@ -7,8 +7,10 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 //call the toast without using toast hooks
 import { toast } from './ui/use-toast';
+import { useRouter } from 'next/navigation';
 
 const FileUpload = () => {
+  const router = useRouter();
   const [uploading, setUploading] = React.useState(false);
 
   //hit the api to create chat when finish upload
@@ -58,11 +60,12 @@ const FileUpload = () => {
         }
         mutate(data, {
           onSuccess: (data) => {
-            console.log(data);
+            console.log(data.result);
             toast({
               title: 'Upload Complete',
               description: 'You will soon be redirected to the chat',
             });
+            router.push(`/chat/${data.chat_id}`);
           },
           onError: (error) => {
             console.log(error);
