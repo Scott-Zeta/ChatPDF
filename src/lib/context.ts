@@ -44,7 +44,7 @@ export async function getMatchesFromEmbeddings(
       body: JSON.stringify(options.data),
     });
     const data = await res.json();
-    console.log(data);
+    //console.log(data);
     return data;
   } catch (error) {
     console.error('Get context Error: ', error);
@@ -90,10 +90,10 @@ export async function getContext(query: string, file_key: string) {
       baseScore: baseScore,
       text: contextText,
     };
-    console.log(context);
+    //console.log(context);
     return context;
   } catch (error) {
-    console.log('Error when getting context: ', error);
+    console.error('Error when getting context: ', error);
     throw error;
   }
 }

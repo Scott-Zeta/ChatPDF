@@ -50,7 +50,11 @@ export async function POST(req: Request) {
       stream: true,
     });
     const stream = OpenAIStream(response);
-    return new StreamingTextResponse(stream);
+    return new StreamingTextResponse(stream, {
+      headers: {
+        score: baseScore.toString(),
+      },
+    });
   } catch (error) {
     console.error(error);
   }

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Input } from './ui/input';
 import { useChat } from 'ai/react';
 import { Button } from './ui/button';
@@ -10,11 +10,15 @@ type Props = { chatId: number };
 
 const ChatComponent = ({ chatId }: Props) => {
   //input state manager by ai/react
+  const scoreRef = useRef(100);
   const { input, handleInputChange, handleSubmit, messages } = useChat({
     //api call when hit the input, send the message to route, see src/app/api/chat/route.tsx
     api: '/api/chat',
     body: {
       chatId,
+    },
+    onResponse(response: Response) {
+      scoreRef.current = parseFloat(response.headers.get('score') || '0');
     },
   });
 
