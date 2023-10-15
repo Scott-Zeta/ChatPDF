@@ -19,7 +19,7 @@ export async function getMatchesFromEmbeddings(
       includeValues: false,
       includeMetadata: true,
       namespace: namespace,
-      topK: 8,
+      topK: 5,
       vector: embeddings,
     },
   };
@@ -45,15 +45,55 @@ export async function getMatchesFromEmbeddings(
     });
     const data = await res.json();
     console.log(data);
+    return data;
   } catch (error) {
     console.error('Get context Error: ', error);
   }
 }
 
 export async function getContext(query: string, file_key: string) {
-  const queryEmbeddings = await getEmbedding(query);
-  const matchesVectors = await getMatchesFromEmbeddings(
-    queryEmbeddings,
-    file_key
-  );
+  try {
+    const queryEmbeddings = await getEmbedding(query);
+    const candidateVectors = await getMatchesFromEmbeddings(
+      queryEmbeddings,
+      file_key
+    );
+    const matchVectors = (
+      candidates: { result: any[]; matches: any[] },
+      requrieScore: number
+    ): string => {
+      const context = candidates.matches
+        .reduce(
+          (
+            accumulator: string,
+            match: { score: number; metadata: { text: string } }
+          ) => {
+            if (match.score > requrieScore) {
+              accumulator += match.metadata.text + '\n';
+            }
+            return accumulator;
+          },
+          ''
+        )
+        .trim();
+      return context;
+    };
+
+    let baseScore = 0.8;
+    let contextText = matchVectors(candidateVectors, baseScore);
+    while (contextText === '' && baseScore > 0.6) {
+      baseScore -= 0.05;
+      contextText = matchVectors(candidateVectors, baseScore);
+    }
+
+    const context = {
+      baseScore: baseScore,
+      text: contextText,
+    };
+    console.log(context);
+    return context;
+  } catch (error) {
+    console.log('Error when getting context: ', error);
+    throw error;
+  }
 }
