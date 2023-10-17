@@ -5,10 +5,22 @@ import { useChat } from 'ai/react';
 import { Button } from './ui/button';
 import { Send } from 'lucide-react';
 import MessageList from './MessageList';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { Message } from 'ai';
 
 type Props = { chatId: number };
 
 const ChatComponent = ({ chatId }: Props) => {
+  const { data } = useQuery({
+    queryKey: ['chat', chatId],
+    queryFn: async () => {
+      const res = await axios.post<Message[]>('/api/get-messages', { chatId });
+      console.log(res.data);
+      return res.data;
+    },
+  });
+
   //input state manager by ai/react
   const { input, handleInputChange, handleSubmit, messages } = useChat({
     //api call when hit the input, send the message to route, see src/app/api/chat/route.tsx
@@ -16,6 +28,7 @@ const ChatComponent = ({ chatId }: Props) => {
     body: {
       chatId,
     },
+    initialMessages: data || [],
   });
 
   return (

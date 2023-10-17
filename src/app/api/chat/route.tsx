@@ -62,7 +62,7 @@ export async function POST(req: Request) {
         //save bot's message
         await db.insert(messagesDB).values({
           chatId,
-          content: completion.concat('Salt'),
+          content: completion,
           role: 'system',
         });
       },
