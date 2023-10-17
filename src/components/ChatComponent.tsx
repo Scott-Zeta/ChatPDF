@@ -16,7 +16,6 @@ const ChatComponent = ({ chatId }: Props) => {
     queryKey: ['chat', chatId],
     queryFn: async () => {
       const res = await axios.post<Message[]>('/api/get-messages', { chatId });
-      console.log(res.data);
       return res.data;
     },
   });
