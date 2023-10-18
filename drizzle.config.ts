@@ -8,7 +8,7 @@ dotenv.config({ path: '.env' });
 
 export default {
   driver: 'pg', //which kind of database is going to interact with
-  schema: 'src/lib/schema.ts', //where is the schema
+  schema: 'src/lib/db/schema.ts', //where is the schema
   dbCredentials: {
     connectionString: process.env.DATABASE_URL!,
     //however, the .env can only be accessed by file under /src, so need other library to help

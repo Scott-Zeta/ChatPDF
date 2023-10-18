@@ -12,6 +12,7 @@ import { Message } from 'ai';
 type Props = { chatId: number };
 
 const ChatComponent = ({ chatId }: Props) => {
+  //render previouse messages
   const { data } = useQuery({
     queryKey: ['chat', chatId],
     queryFn: async () => {
