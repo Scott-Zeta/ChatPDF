@@ -5,6 +5,7 @@ import Link from 'next/link';
 import FileUpload from '@/components/FileUpload';
 import Header from '@/components/Header';
 import { checkSubscription } from '@/lib/checkSubscription';
+import Header from '@/components/Header';
 
 export default async function Home() {
   const { userId }: { userId: string | null } = await auth();
@@ -13,6 +14,7 @@ export default async function Home() {
   console.log(isPro);
   return (
     <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
+      <Header />
       <Header />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-col items-center text-center">
