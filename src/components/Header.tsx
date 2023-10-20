@@ -1,14 +1,14 @@
 import React from 'react';
-import UpdateLog from './UpdateLog';
+import { Button } from './ui/button';
 
 type Props = {};
 
 const Header = (props: Props) => {
   return (
     <div className="p-2 flex">
-      <div className="ml-auto">
-        <UpdateLog />
-      </div>
+      <Button variant="link" className="ml-auto">
+        Update Log
+      </Button>
     </div>
   );
 };
