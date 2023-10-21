@@ -5,6 +5,7 @@ import { MessageCircle, PlusCircle } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { cn } from '@/lib/utils';
+import GoPro from './GoPro';
 
 type Props = {
   chats: DrizzleChat[];
@@ -38,9 +39,7 @@ const ChatSideBar = ({ chats, chatId }: Props) => {
           </Link>
         ))}
       </div>
-      <Button className="mt-auto bg-yellow-500 hover:bg-yellow-400">
-        To PRO
-      </Button>
+      <GoPro />
     </div>
   );
 };

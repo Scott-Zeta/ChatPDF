@@ -14,7 +14,6 @@ export async function GET() {
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
-
     //check user subscription status
     const _userSubscriptions = await db
       .select()
