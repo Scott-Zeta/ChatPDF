@@ -71,6 +71,8 @@ const GoPro = (props: Props) => {
                 onClick={() => {
                   if (link) {
                     window.open(link, '_blank');
+                    setIsLoading(false);
+                    setOpen(false);
                   }
                 }}
               >
