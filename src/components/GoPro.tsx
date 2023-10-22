@@ -4,7 +4,6 @@ import { Button } from './ui/button';
 import axios from 'axios';
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -76,7 +75,7 @@ const GoPro = (props: Props) => {
                   }
                 }}
               >
-                Click here if your browser did not direct you automatically
+                Click here if your browser did not redirect you automatically
               </Button>
             </AlertDialogFooter>
           </div>
