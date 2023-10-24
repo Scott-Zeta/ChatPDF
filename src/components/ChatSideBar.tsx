@@ -14,13 +14,15 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import FileUpload from './FileUpload';
+import ManageSubscription from './ManageSubscription';
 
 type Props = {
   chats: DrizzleChat[];
   chatId: number;
+  isPro: boolean;
 };
 
-const ChatSideBar = ({ chats, chatId }: Props) => {
+const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
   return (
     <div className="w-full h-screen p-4 text-gray-200 bg-gray-900 flex flex-col">
       <Dialog>
@@ -57,7 +59,11 @@ const ChatSideBar = ({ chats, chatId }: Props) => {
           </Link>
         ))}
       </div>
-      <GoPro />
+      {isPro ? (
+        <ManageSubscription buttonClassName="mt-auto bg-yellow-500 hover:bg-yellow-400" />
+      ) : (
+        <GoPro />
+      )}
     </div>
   );
 };
