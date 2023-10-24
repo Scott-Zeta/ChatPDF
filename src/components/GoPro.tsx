@@ -30,7 +30,7 @@ const GoPro = (props: Props) => {
       setIsLoading(false);
       setOpen(false);
     } catch (error) {
-      console.error('Error at GoPro: ', error);
+      console.error('Error at HandleSubscription call: ', error);
     }
   };
   return (

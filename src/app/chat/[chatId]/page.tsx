@@ -6,6 +6,7 @@ import { chats } from '@/lib/db/schema';
 import { auth } from '@clerk/nextjs';
 import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
+import { checkSubscription } from '@/lib/checkSubscription';
 import React from 'react';
 
 type Props = {
@@ -16,6 +17,8 @@ type Props = {
 
 const ChatPage = async ({ params: { chatId } }: Props) => {
   const { userId } = await auth();
+  const isPro = await checkSubscription();
+
   if (!userId) {
     return redirect('/sign-in');
   }
@@ -35,7 +38,7 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
       <div className="flex w-full min-h-screen overflow-scroll">
         {/* chat sidebar */}
         <div className="flex-[1] max-w-xs">
-          <ChatSideBar chatId={parseInt(chatId)} chats={_chats} />
+          <ChatSideBar chatId={parseInt(chatId)} chats={_chats} isPro={isPro} />
         </div>
         {/* pdf viewer */}
         <div className="max-h-screen p-4 oveflow-scroll flex-[4]">

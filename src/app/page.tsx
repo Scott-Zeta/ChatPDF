@@ -1,16 +1,32 @@
 import Image from 'next/image';
-import { UserButton, auth } from '@clerk/nextjs';
+import { UserButton, auth, currentUser } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import FileUpload from '@/components/FileUpload';
 import Header from '@/components/Header';
 import { checkSubscription } from '@/lib/checkSubscription';
+import { db } from '@/lib/db';
+import { chats } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
+import ManageSubscription from '@/components/ManageSubscription';
 
 export default async function Home() {
   const { userId }: { userId: string | null } = await auth();
+  const user = await currentUser();
   const isauthenticated = !!userId;
   const isPro = await checkSubscription();
-  console.log(isPro);
+
+  let latestDialog;
+
+  if (userId) {
+    const chatList = await db
+      .select()
+      .from(chats)
+      .where(eq(chats.userId, userId));
+    const id = chatList[chatList.length - 1].id;
+    latestDialog = id;
+  }
+
   return (
     <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
       <Header />
@@ -20,8 +36,18 @@ export default async function Home() {
             <h1 className="mr-3 text-5xl font-semibold">Chat with any PDF</h1>
             <UserButton afterSignOutUrl="/" />
           </div>
+          {isPro && (
+            <p className="text-sm text-slate-500">
+              Welcome, Hornorable PRO Member {user?.firstName}!
+            </p>
+          )}
           <div className="mt-2 flex">
-            {isauthenticated && <Button>Click to Go!</Button>}
+            {isauthenticated && (
+              <Link href={`/chat/${latestDialog}`}>
+                <Button>Click to Go!</Button>
+              </Link>
+            )}
+            {isPro && <ManageSubscription buttonClassName="ml-3" />}
           </div>
           <p className="max-w-xl mt-1 text-lg text-slate-600">
             Use AI help you read those academic or bureaucratic PDFs.{' '}
