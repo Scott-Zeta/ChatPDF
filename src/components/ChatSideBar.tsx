@@ -42,7 +42,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
         </DialogContent>
       </Dialog>
 
-      <div className="flex pb-2 flex-col gap-2 mt-4 overflow-scroll">
+      <div className="flex pb-2 flex-col gap-2 my-4 overflow-scroll">
         {chats.map((chat) => (
           <Link key={chat.id} href={`/chat/${chat.id}`}>
             <div
