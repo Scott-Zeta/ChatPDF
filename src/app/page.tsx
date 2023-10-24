@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { UserButton, auth } from '@clerk/nextjs';
+import { UserButton, auth, currentUser } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import FileUpload from '@/components/FileUpload';
@@ -11,6 +11,7 @@ import { eq } from 'drizzle-orm';
 
 export default async function Home() {
   const { userId }: { userId: string | null } = await auth();
+  const user = await currentUser();
   const isauthenticated = !!userId;
   const isPro = await checkSubscription();
 
@@ -24,7 +25,7 @@ export default async function Home() {
     const id = chatList[chatList.length - 1].id;
     latestDialog = id;
   }
-
+  console.log(await auth());
   return (
     <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
       <Header />
@@ -34,6 +35,11 @@ export default async function Home() {
             <h1 className="mr-3 text-5xl font-semibold">Chat with any PDF</h1>
             <UserButton afterSignOutUrl="/" />
           </div>
+          {isPro && (
+            <p className="text-sm text-slate-500">
+              Welcome, Hornorable PRO Member {user?.firstName}!
+            </p>
+          )}
           <div className="mt-2 flex">
             {isauthenticated && (
               <Link href={`/chat/${latestDialog}`}>
