@@ -8,6 +8,7 @@ import { checkSubscription } from '@/lib/checkSubscription';
 import { db } from '@/lib/db';
 import { chats } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
+import ManageSubscription from '@/components/ManageSubscription';
 
 export default async function Home() {
   const { userId }: { userId: string | null } = await auth();
@@ -46,6 +47,7 @@ export default async function Home() {
                 <Button>Click to Go!</Button>
               </Link>
             )}
+            {isPro && <ManageSubscription buttonClassName="ml-3" />}
           </div>
           <p className="max-w-xl mt-1 text-lg text-slate-600">
             Use AI help you read those academic or bureaucratic PDFs.{' '}

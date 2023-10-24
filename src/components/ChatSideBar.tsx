@@ -8,9 +8,7 @@ import { cn } from '@/lib/utils';
 import GoPro from './GoPro';
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
