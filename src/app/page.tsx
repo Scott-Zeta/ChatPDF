@@ -25,7 +25,7 @@ export default async function Home() {
     const id = chatList[chatList.length - 1].id;
     latestDialog = id;
   }
-  console.log(await auth());
+
   return (
     <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
       <Header />
