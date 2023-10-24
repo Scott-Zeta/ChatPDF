@@ -5,12 +5,26 @@ import Link from 'next/link';
 import FileUpload from '@/components/FileUpload';
 import Header from '@/components/Header';
 import { checkSubscription } from '@/lib/checkSubscription';
+import { db } from '@/lib/db';
+import { chats } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
 
 export default async function Home() {
   const { userId }: { userId: string | null } = await auth();
   const isauthenticated = !!userId;
   const isPro = await checkSubscription();
-  console.log(isPro);
+
+  let latestDialog;
+
+  if (userId) {
+    const chatList = await db
+      .select()
+      .from(chats)
+      .where(eq(chats.userId, userId));
+    const id = chatList[chatList.length - 1].id;
+    latestDialog = id;
+  }
+
   return (
     <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
       <Header />
@@ -21,7 +35,11 @@ export default async function Home() {
             <UserButton afterSignOutUrl="/" />
           </div>
           <div className="mt-2 flex">
-            {isauthenticated && <Button>Click to Go!</Button>}
+            {isauthenticated && (
+              <Link href={`/chat/${latestDialog}`}>
+                <Button>Click to Go!</Button>
+              </Link>
+            )}
           </div>
           <p className="max-w-xl mt-1 text-lg text-slate-600">
             Use AI help you read those academic or bureaucratic PDFs.{' '}
