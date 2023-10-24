@@ -4,10 +4,13 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import FileUpload from '@/components/FileUpload';
 import Header from '@/components/Header';
+import { checkSubscription } from '@/lib/checkSubscription';
 
 export default async function Home() {
   const { userId }: { userId: string | null } = await auth();
   const isauthenticated = !!userId;
+  const isPro = await checkSubscription();
+  console.log(isPro);
   return (
     <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
       <Header />

@@ -12,6 +12,10 @@ const updateLogEntries: LogEntry[] = [
     date: '20/10/2023',
     updates: ['Implemented update log'],
   },
+  {
+    date: '24/10/2023',
+    updates: ['Testing Stripe subscription'],
+  },
   // ...more entries
 ];
 
