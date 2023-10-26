@@ -21,12 +21,11 @@ type Props = {
   chats: DrizzleChat[];
   chatId: number;
   isPro: boolean;
-  userId: string;
 };
 
-const ChatSideBar = ({ chats, chatId, isPro, userId }: Props) => {
-  const handleDeletion = async () => {
-    const res = await axios.delete('/api/delete', { data: { chatId, userId } });
+const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
+  const handleDeletion = async (chatId: number) => {
+    const res = await axios.delete('/api/delete', { data: { chatId } });
   };
   return (
     <div className="w-full h-screen p-4 text-gray-200 bg-gray-900 flex flex-col">
@@ -63,7 +62,7 @@ const ChatSideBar = ({ chats, chatId, isPro, userId }: Props) => {
 
               {chat.id === chatId && (
                 <Button
-                  onClick={handleDeletion}
+                  onClick={() => handleDeletion(chat.id)}
                   className="p-0 h-auto hover:bg-transparent"
                   variant="ghost"
                 >
