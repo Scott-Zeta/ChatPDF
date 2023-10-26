@@ -10,6 +10,8 @@ export const DELETE = async (req: Request) => {
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
+
+    //verify the chat owner
     const { chatId } = await req.json();
     try {
       const chat = await db.select().from(chats).where(eq(chats.id, chatId));
@@ -24,7 +26,19 @@ export const DELETE = async (req: Request) => {
       return new NextResponse('Fail to verify the chat owner', { status: 500 });
     }
 
-    //Waiting for further implementation....
+    //delete the chat in NeonDB
+    try {
+      await db.transaction(async (tx) => {
+        await tx.delete(chats).where(eq(chats.id, chatId));
+        await tx.delete(messages).where(eq(messages.chatId, chatId));
+      });
+    } catch (error) {
+      console.error('Fail to delete the chat in NeonDB', error);
+      return new NextResponse(
+        'Fail to delete the chat in NeonDB, please try again',
+        { status: 500 }
+      );
+    }
 
     return new NextResponse('OK Testing', { status: 200 });
   } catch (error) {
