@@ -69,6 +69,8 @@ export const DELETE = async (req: Request) => {
       console.log('Fail to delete the vector in pinecone', error);
     }
 
+    //waiting for implement delete in S3
+
     return new NextResponse('OK Testing', { status: 200 });
   } catch (error) {
     console.error('Delete Chat Error', error);
