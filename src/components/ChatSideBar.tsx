@@ -15,14 +15,19 @@ import {
 } from '@/components/ui/dialog';
 import FileUpload from './FileUpload';
 import ManageSubscription from './ManageSubscription';
+import axios from 'axios';
 
 type Props = {
   chats: DrizzleChat[];
   chatId: number;
   isPro: boolean;
+  userId: string;
 };
 
-const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
+const ChatSideBar = ({ chats, chatId, isPro, userId }: Props) => {
+  const handleDeletion = async () => {
+    const res = await axios.delete('/api/delete', { data: { chatId, userId } });
+  };
   return (
     <div className="w-full h-screen p-4 text-gray-200 bg-gray-900 flex flex-col">
       <Dialog>
@@ -58,9 +63,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
 
               {chat.id === chatId && (
                 <Button
-                  onClick={() => {
-                    console.log(`Hit Deletion on ${chat.id}`);
-                  }}
+                  onClick={handleDeletion}
                   className="p-0 h-auto hover:bg-transparent"
                   variant="ghost"
                 >
