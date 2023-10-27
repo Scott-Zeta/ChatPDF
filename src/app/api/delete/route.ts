@@ -65,9 +65,8 @@ export const DELETE = async (req: Request) => {
         `${process.env.PINECONE_HOST}/vectors/delete`,
         pineconeOptions
       );
-      console.log(await res.json());
     } catch (error) {
-      console.log('Fail to delete the vector in pinecone', error);
+      console.error('Fail to delete the vector in pinecone', error);
     }
 
     //waiting for implement delete in S3
