@@ -1,6 +1,4 @@
-import ChatComponent from '@/components/ChatComponent';
 import ChatSideBar from '@/components/ChatSideBar';
-import PDFViewer from '@/components/PDFViewer';
 import { db } from '@/lib/db';
 import { chats } from '@/lib/db/schema';
 import { auth } from '@clerk/nextjs';
@@ -8,6 +6,7 @@ import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import { checkSubscription } from '@/lib/checkSubscription';
 import React from 'react';
+import FileUpload from '@/components/FileUpload';
 
 type Props = {
   params: {
@@ -15,7 +14,7 @@ type Props = {
   };
 };
 
-const ChatPage = async ({ params: { chatId } }: Props) => {
+const newPage = async ({ params: { chatId } }: Props) => {
   const { userId } = await auth();
   const isPro = await checkSubscription();
 
@@ -27,11 +26,6 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
   if (!_chats) {
     return redirect('/');
   }
-  if (!_chats.find((chat) => chat.id === parseInt(chatId))) {
-    return redirect('/');
-  }
-
-  const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
 
   return (
     <div className="flex min-h-screen  overflow-scroll">
@@ -40,17 +34,20 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
         <div className="flex-[3] max-w-xs">
           <ChatSideBar chatId={parseInt(chatId)} chats={_chats} isPro={isPro} />
         </div>
-        {/* pdf viewer */}
-        <div className="max-h-screen p-4 overflow-scroll flex-[4]">
-          <PDFViewer pdf_url={currentChat?.pdfUrl || ''} />
+        <div className="max-h-screen p-4 overflow-scroll flex-[4] items-center justify-center flex">
+          <div className="w-full flex flex-col justify-center items-center">
+            <h1 className="text-3xl">Awaiting Order</h1>
+            <div className="w-full">
+              <FileUpload />
+            </div>
+          </div>
         </div>
-        {/* chat component */}
         <div className="flex-[4] border-l-4 border-l-slate-200">
-          <ChatComponent chatId={parseInt(chatId)} />
+          <p>Further would be some pictures like user guide</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default ChatPage;
+export default newPage;
