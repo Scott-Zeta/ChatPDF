@@ -39,7 +39,7 @@ export default async function Home() {
           </div>
           {isPro && (
             <p className="text-sm text-slate-500">
-              Welcome, Hornorable PRO Member {user?.firstName}!
+              Welcome, Honorable PRO Member {user?.firstName}!
             </p>
           )}
           <div className="mt-2 flex">
