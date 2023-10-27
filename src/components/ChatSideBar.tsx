@@ -3,6 +3,7 @@ import { DrizzleChat } from '@/lib/db/schema';
 import { Button } from './ui/button';
 import { MessageCircle, PlusCircle, Trash2 } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { cn } from '@/lib/utils';
 import GoPro from './GoPro';
@@ -24,8 +25,23 @@ type Props = {
 };
 
 const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
+  const router = useRouter();
   const handleDeletion = async (chatId: number) => {
-    const res = await axios.delete('/api/delete', { data: { chatId } });
+    try {
+      const res = await axios.delete('/api/delete', { data: { chatId } });
+      if (res.status === 200) {
+        router.push('/chat/new');
+      } else if (res.status === 500) {
+        //implement toast to tell user that deletion failed
+        console.log('Something fail when deleting the chat, please try again.');
+      } else {
+        //implement toast to tell user that deletion failed
+        console.log("Can not find the chat, or you don't have permission.");
+      }
+    } catch (error) {
+      //implement toast to tell user that deletion failed
+      console.log('Service error when deleting', error);
+    }
   };
   return (
     <div className="w-full h-screen p-4 text-gray-200 bg-gray-900 flex flex-col">
