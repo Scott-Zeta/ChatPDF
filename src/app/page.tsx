@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { UserButton, auth, currentUser } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -23,8 +22,10 @@ export default async function Home() {
       .select()
       .from(chats)
       .where(eq(chats.userId, userId));
-    const id = chatList[chatList.length - 1].id;
-    latestDialog = id;
+    if (chatList.length !== 0) {
+      const id = chatList[chatList.length - 1].id;
+      latestDialog = id;
+    }
   }
 
   return (
@@ -42,11 +43,16 @@ export default async function Home() {
             </p>
           )}
           <div className="mt-2 flex">
-            {isauthenticated && (
-              <Link href={`/chat/${latestDialog}`}>
-                <Button>Click to Go!</Button>
-              </Link>
-            )}
+            {isauthenticated &&
+              (latestDialog ? (
+                <Link href={`/chat/${latestDialog}`}>
+                  <Button>Click to Go!</Button>
+                </Link>
+              ) : (
+                <p className="my-2">
+                  You don&apos;t have any File yet, Start to Upload!
+                </p>
+              ))}
             {isPro && <ManageSubscription buttonClassName="ml-3" />}
           </div>
           <p className="max-w-xl mt-1 text-lg text-slate-600">

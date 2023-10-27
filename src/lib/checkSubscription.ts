@@ -15,7 +15,7 @@ export const checkSubscription = async () => {
     .from(userSubscriptions)
     .where(eq(userSubscriptions.userId, userId));
 
-  if (!userQuery || userQuery[1]) {
+  if (!userQuery || !userQuery[0] || userQuery[1]) {
     return false;
   }
 

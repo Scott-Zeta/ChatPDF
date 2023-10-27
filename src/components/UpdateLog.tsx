@@ -23,7 +23,7 @@ const UpdateLog = (props: Props) => {
         </DialogHeader>
         <div className="h-96 border-dashed border-2 rounded-lg overflow-auto p-2">
           {updateLogEntries.map((entry) => (
-            <div key={entry.date}>
+            <div className="mb-2" key={entry.date}>
               <h1 className="text-gray-800 font-semibold">{entry.date}</h1>
               <ul className="list-disc list-inside">
                 {entry.updates.map((change) => (

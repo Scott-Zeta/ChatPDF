@@ -20,6 +20,10 @@ const updateLogEntries: LogEntry[] = [
     date: '25/10/2023',
     updates: ['App UI improvements'],
   },
+  {
+    date: '27/10/2023',
+    updates: ['Add delete chat function, remove any relative data', 'Bug fix'],
+  },
   // ...more entries
 ];
 

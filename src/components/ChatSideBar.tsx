@@ -1,7 +1,7 @@
 'use client';
 import { DrizzleChat } from '@/lib/db/schema';
 import { Button } from './ui/button';
-import { MessageCircle, PlusCircle } from 'lucide-react';
+import { MessageCircle, PlusCircle, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { cn } from '@/lib/utils';
@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/dialog';
 import FileUpload from './FileUpload';
 import ManageSubscription from './ManageSubscription';
+import axios from 'axios';
 
 type Props = {
   chats: DrizzleChat[];
@@ -23,6 +24,9 @@ type Props = {
 };
 
 const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
+  const handleDeletion = async (chatId: number) => {
+    const res = await axios.delete('/api/delete', { data: { chatId } });
+  };
   return (
     <div className="w-full h-screen p-4 text-gray-200 bg-gray-900 flex flex-col">
       <Dialog>
@@ -55,6 +59,16 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
               <p className="w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis">
                 {chat.pdfName}
               </p>
+
+              {chat.id === chatId && (
+                <Button
+                  onClick={() => handleDeletion(chat.id)}
+                  className="p-0 h-auto hover:bg-transparent"
+                  variant="ghost"
+                >
+                  <Trash2 />
+                </Button>
+              )}
             </div>
           </Link>
         ))}
