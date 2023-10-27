@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 import { chats, messages } from '@/lib/db/schema';
 import { convertToAscii } from '@/lib/utils';
+import { deleteFromS3 } from '@/lib/s3Deletion';
 
 export const DELETE = async (req: Request) => {
   try {
@@ -70,7 +71,7 @@ export const DELETE = async (req: Request) => {
     }
 
     //waiting for implement delete in S3
-
+    await deleteFromS3(file_key);
     return new NextResponse('OK Testing', { status: 200 });
   } catch (error) {
     console.error('Delete Chat Error', error);
