@@ -55,9 +55,11 @@ export async function processingForPinecone(file_key: string) {
       namespace: convertToAscii(file_key),
     },
   };
-  axios.request(options).catch(function (error) {
+  try {
+    await axios.request(options);
+  } catch (error) {
     console.error('Upload to pinecone error: ', error);
-  });
+  }
 }
 
 // export const truncateStringByBytes = (str:string, bytes:number) => {
