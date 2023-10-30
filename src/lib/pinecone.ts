@@ -58,7 +58,7 @@ export async function processingForPinecone(file_key: string) {
   axios
     .request(options)
     .then(function (response) {
-      console.log('Upload to pinecone success');
+      console.log(file_key, 'Upload to pinecone success');
     })
     .catch(function (error) {
       console.error('Upload to pinecone error: ', error);
