@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { MessageCircle, PlusCircle, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import GoPro from './GoPro';
 import {
@@ -14,6 +14,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { RotatingLines } from 'react-loader-spinner';
 import FileUpload from './FileUpload';
 import ManageSubscription from './ManageSubscription';
 import axios from 'axios';
@@ -26,8 +37,11 @@ type Props = {
 
 const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const handleDeletion = async (chatId: number) => {
     try {
+      setIsLoading(true);
       const res = await axios.delete('/api/delete', { data: { chatId } });
       if (res.status === 200) {
         router.push('/chat/new');
@@ -41,6 +55,9 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
     } catch (error) {
       //implement toast to tell user that deletion failed
       console.log('Service error when deleting', error);
+    } finally {
+      setOpen(false);
+      setIsLoading(false);
     }
   };
   return (
@@ -77,13 +94,54 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
               </p>
 
               {chat.id === chatId && (
-                <Button
-                  onClick={() => handleDeletion(chat.id)}
-                  className="p-0 h-auto hover:bg-transparent"
-                  variant="ghost"
-                >
-                  <Trash2 />
-                </Button>
+                <AlertDialog open={open} onOpenChange={setOpen}>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      className="p-0 h-auto hover:bg-transparent"
+                      variant="ghost"
+                    >
+                      <Trash2 />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Delete Your Chat</AlertDialogTitle>
+                      {isLoading ? (
+                        <div className="flex flex-col items-center">
+                          <RotatingLines
+                            strokeColor="grey"
+                            strokeWidth="5"
+                            animationDuration="0.75"
+                            width="96"
+                            visible={true}
+                          />
+                          <AlertDialogDescription>
+                            Processing
+                          </AlertDialogDescription>
+                        </div>
+                      ) : (
+                        <AlertDialogDescription>
+                          By selecting Continue, you will delete any record,
+                          file about this chat. Are you sure?
+                        </AlertDialogDescription>
+                      )}
+                    </AlertDialogHeader>
+                    {isLoading ? (
+                      <div className="flex flex-col items-center">
+                        <AlertDialogFooter>
+                          <p>Processing, Please wait.</p>
+                        </AlertDialogFooter>
+                      </div>
+                    ) : (
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <Button onClick={() => handleDeletion(chat.id)}>
+                          Continue
+                        </Button>
+                      </AlertDialogFooter>
+                    )}
+                  </AlertDialogContent>
+                </AlertDialog>
               )}
             </div>
           </Link>
