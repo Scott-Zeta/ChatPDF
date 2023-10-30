@@ -38,11 +38,11 @@ type Props = {
 
 const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [open, setOpen] = useState(false);
   const handleDeletion = async (chatId: number) => {
     try {
-      setIsLoading(true);
+      setIsDeleting(true);
       const res = await axios.delete('/api/delete', { data: { chatId } });
       if (res.status === 200) {
         router.push('/chat/new');
@@ -71,7 +71,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
       });
     } finally {
       setOpen(false);
-      setIsLoading(false);
+      setIsDeleting(false);
     }
   };
   return (
@@ -120,7 +120,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>Delete Your Chat</AlertDialogTitle>
-                      {isLoading ? (
+                      {isDeleting ? (
                         <div className="flex flex-col items-center">
                           <RotatingLines
                             strokeColor="grey"
@@ -140,7 +140,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
                         </AlertDialogDescription>
                       )}
                     </AlertDialogHeader>
-                    {isLoading ? (
+                    {isDeleting ? (
                       <div className="flex flex-col items-center">
                         <AlertDialogFooter>
                           <p>Processing, Please wait.</p>
