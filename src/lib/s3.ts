@@ -45,7 +45,7 @@ export async function uploadToS3(file: File) {
       file_size: file.size,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
