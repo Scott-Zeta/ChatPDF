@@ -25,7 +25,6 @@ export async function POST(req: Request) {
 
   //get the transaction info
   const session = event.data.object as Stripe.Checkout.Session;
-  console.log('Session: ', session);
 
   //create new subscription
   if (event.type === 'checkout.session.completed') {

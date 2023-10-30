@@ -13,8 +13,7 @@ export async function POST(req: Request, res: Response) {
   try {
     const body = await req.json();
     const { file_key, file_name } = body;
-    console.log('Upload complete: ', file_key, file_name);
-    const result = await processingForPinecone(file_key);
+    await processingForPinecone(file_key);
     //create a chat in neon DB, if success
     //return the chat id for further routes
     const chat_id = await db
@@ -29,7 +28,6 @@ export async function POST(req: Request, res: Response) {
     return NextResponse.json(
       {
         chat_id: chat_id[0].insertedId,
-        result,
       },
       { status: 200 }
     );
