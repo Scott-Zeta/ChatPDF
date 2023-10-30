@@ -36,7 +36,6 @@ const FileUpload = () => {
     // accept: { 'application/pdf': ['.pdf'], 'text/plain': ['.txt'] },
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
-      console.log(acceptedFiles);
       const file = acceptedFiles[0];
       if (file.size > 10 * 1024 * 1024) {
         toast({
@@ -61,7 +60,6 @@ const FileUpload = () => {
         }
         mutate(data, {
           onSuccess: (data) => {
-            console.log(data.result);
             toast({
               title: 'Upload Complete',
               description: 'You will soon be redirected to the chat',
@@ -69,7 +67,7 @@ const FileUpload = () => {
             router.push(`/chat/${data.chat_id}`);
           },
           onError: (error) => {
-            console.log(error);
+            console.error(error);
             toast({
               variant: 'destructive',
               title: 'Can not fetching Data',
