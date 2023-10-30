@@ -3,7 +3,8 @@ import { DrizzleChat } from '@/lib/db/schema';
 import { Button } from './ui/button';
 import { MessageCircle, PlusCircle, Trash2 } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import GoPro from './GoPro';
 import {
@@ -13,8 +14,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { RotatingLines } from 'react-loader-spinner';
 import FileUpload from './FileUpload';
 import ManageSubscription from './ManageSubscription';
+import { toast } from './ui/use-toast';
 import axios from 'axios';
 
 type Props = {
@@ -24,8 +37,42 @@ type Props = {
 };
 
 const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
+  const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [open, setOpen] = useState(false);
   const handleDeletion = async (chatId: number) => {
-    const res = await axios.delete('/api/delete', { data: { chatId } });
+    try {
+      setIsDeleting(true);
+      const res = await axios.delete('/api/delete', { data: { chatId } });
+      if (res.status === 200) {
+        router.push('/chat/new');
+        toast({
+          title: 'Deletion Success',
+          description: 'There is nothing left there.',
+        });
+      } else if (res.status === 500) {
+        toast({
+          variant: 'destructive',
+          title: 'Deletion Failed',
+          description: 'Something went wrong, please try again.',
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Deletion Failed',
+          description: "Can not find the chat, or you don't have permission.",
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Deletion Failed',
+        description: 'Something went wrong, please try again.',
+      });
+    } finally {
+      setOpen(false);
+      setIsDeleting(false);
+    }
   };
   return (
     <div className="w-full h-screen p-4 text-gray-200 bg-gray-900 flex flex-col">
@@ -61,13 +108,54 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
               </p>
 
               {chat.id === chatId && (
-                <Button
-                  onClick={() => handleDeletion(chat.id)}
-                  className="p-0 h-auto hover:bg-transparent"
-                  variant="ghost"
-                >
-                  <Trash2 />
-                </Button>
+                <AlertDialog open={open} onOpenChange={setOpen}>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      className="p-0 h-auto hover:bg-transparent"
+                      variant="ghost"
+                    >
+                      <Trash2 />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogTitle>Delete Your Chat</AlertDialogTitle>
+                    {isDeleting ? (
+                      <>
+                        <AlertDialogHeader>
+                          <div className="flex flex-col items-center">
+                            <RotatingLines
+                              strokeColor="grey"
+                              strokeWidth="5"
+                              animationDuration="0.75"
+                              width="96"
+                              visible={true}
+                            />
+                          </div>
+                        </AlertDialogHeader>
+                        <div className="flex flex-col items-center">
+                          <AlertDialogFooter>
+                            <p>Processing, Please wait.</p>
+                          </AlertDialogFooter>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <AlertDialogHeader>
+                          <AlertDialogDescription>
+                            By selecting Continue, you will delete any record,
+                            file about this chat. Are you sure?
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <Button onClick={() => handleDeletion(chat.id)}>
+                            Continue
+                          </Button>
+                        </AlertDialogFooter>
+                      </>
+                    )}
+                  </AlertDialogContent>
+                </AlertDialog>
               )}
             </div>
           </Link>
