@@ -118,10 +118,10 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Delete Your Chat</AlertDialogTitle>
-                      {isDeleting ? (
-                        <>
+                    <AlertDialogTitle>Delete Your Chat</AlertDialogTitle>
+                    {isDeleting ? (
+                      <>
+                        <AlertDialogHeader>
                           <div className="flex flex-col items-center">
                             <RotatingLines
                               strokeColor="grey"
@@ -131,27 +131,29 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
                               visible={true}
                             />
                           </div>
-                          <div className="flex flex-col items-center">
-                            <AlertDialogFooter>
-                              <p>Processing, Please wait.</p>
-                            </AlertDialogFooter>
-                          </div>
-                        </>
-                      ) : (
-                        <>
+                        </AlertDialogHeader>
+                        <div className="flex flex-col items-center">
+                          <AlertDialogFooter>
+                            <p>Processing, Please wait.</p>
+                          </AlertDialogFooter>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <AlertDialogHeader>
                           <AlertDialogDescription>
                             By selecting Continue, you will delete any record,
                             file about this chat. Are you sure?
                           </AlertDialogDescription>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <Button onClick={() => handleDeletion(chat.id)}>
-                              Continue
-                            </Button>
-                          </AlertDialogFooter>
-                        </>
-                      )}
-                    </AlertDialogHeader>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <Button onClick={() => handleDeletion(chat.id)}>
+                            Continue
+                          </Button>
+                        </AlertDialogFooter>
+                      </>
+                    )}
                   </AlertDialogContent>
                 </AlertDialog>
               )}
