@@ -27,6 +27,7 @@ import {
 import { RotatingLines } from 'react-loader-spinner';
 import FileUpload from './FileUpload';
 import ManageSubscription from './ManageSubscription';
+import { toast } from './ui/use-toast';
 import axios from 'axios';
 
 type Props = {
@@ -45,16 +46,29 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
       const res = await axios.delete('/api/delete', { data: { chatId } });
       if (res.status === 200) {
         router.push('/chat/new');
+        toast({
+          title: 'Deletion Success',
+          description: 'There is nothing left there.',
+        });
       } else if (res.status === 500) {
-        //implement toast to tell user that deletion failed
-        console.log('Something fail when deleting the chat, please try again.');
+        toast({
+          variant: 'destructive',
+          title: 'Deletion Failed',
+          description: 'Something went wrong, please try again.',
+        });
       } else {
-        //implement toast to tell user that deletion failed
-        console.log("Can not find the chat, or you don't have permission.");
+        toast({
+          variant: 'destructive',
+          title: 'Deletion Failed',
+          description: "Can not find the chat, or you don't have permission.",
+        });
       }
     } catch (error) {
-      //implement toast to tell user that deletion failed
-      console.log('Service error when deleting', error);
+      toast({
+        variant: 'destructive',
+        title: 'Deletion Failed',
+        description: 'Something went wrong, please try again.',
+      });
     } finally {
       setOpen(false);
       setIsLoading(false);
