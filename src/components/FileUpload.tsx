@@ -38,11 +38,11 @@ const FileUpload = () => {
     onDrop: async (acceptedFiles) => {
       const file = acceptedFiles[0];
       if (file.size > 10 * 1024 * 1024) {
-        toast({
-          variant: 'destructive',
-          title: 'Upload failed',
-          description: 'File size must be less than 10MB',
-        });
+        // toast({
+        //   variant: 'destructive',
+        //   title: 'Upload failed',
+        //   description: 'File size must be less than 10MB',
+        // });
         return;
       }
 
@@ -51,7 +51,7 @@ const FileUpload = () => {
         setUploading(true);
         const data = await uploadToS3(file);
         if (!data?.file_key || !data?.file_name) {
-          toast({
+          await toast({
             variant: 'destructive',
             title: 'Upload failed',
             description: 'Could not get valid file key or file name',
@@ -67,7 +67,6 @@ const FileUpload = () => {
             router.push(`/chat/${data.chat_id}`);
           },
           onError: (error) => {
-            console.error(error);
             toast({
               variant: 'destructive',
               title: 'Can not fetching Data',
@@ -76,11 +75,12 @@ const FileUpload = () => {
           },
         });
       } catch (error) {
-        toast({
+        await toast({
           variant: 'destructive',
           title: 'Chat creation failed',
           description: `${error}`,
         });
+      } finally {
         setUploading(false);
       }
     },
