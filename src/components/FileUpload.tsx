@@ -51,35 +51,35 @@ const FileUpload = () => {
         setUploading(true);
         const data = await uploadToS3(file);
         if (!data?.file_key || !data?.file_name) {
-          // toast({
-          //   variant: 'destructive',
-          //   title: 'Upload failed',
-          //   description: 'Could not get valid file key or file name',
-          // });
+          await toast({
+            variant: 'destructive',
+            title: 'Upload failed',
+            description: 'Could not get valid file key or file name',
+          });
           return;
         }
         mutate(data, {
           onSuccess: (data) => {
-            // toast({
-            //   title: 'Upload Complete',
-            //   description: 'You will soon be redirected to the chat',
-            // });
+            toast({
+              title: 'Upload Complete',
+              description: 'You will soon be redirected to the chat',
+            });
             router.push(`/chat/${data.chat_id}`);
           },
           onError: (error) => {
-            // toast({
-            //   variant: 'destructive',
-            //   title: 'Can not fetching Data',
-            //   description: `${error}`,
-            // });
+            toast({
+              variant: 'destructive',
+              title: 'Can not fetching Data',
+              description: `${error}`,
+            });
           },
         });
       } catch (error) {
-        // toast({
-        //   variant: 'destructive',
-        //   title: 'Chat creation failed',
-        //   description: `${error}`,
-        // });
+        await toast({
+          variant: 'destructive',
+          title: 'Chat creation failed',
+          description: `${error}`,
+        });
       } finally {
         setUploading(false);
       }
