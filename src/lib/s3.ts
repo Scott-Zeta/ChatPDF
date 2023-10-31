@@ -35,7 +35,7 @@ export async function uploadToS3(file: File) {
 
     //.promise() will return a promise, so we can use .then() and .catch()
     await upload.then(() => {
-      console.log('S3 Upload Completed', file_key);
+      // console.log('S3 Upload Completed', file_key);
     });
 
     return Promise.resolve({
