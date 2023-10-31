@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { convertToAscii } from './utils';
 import { getEmbedding } from './embeddings';
 

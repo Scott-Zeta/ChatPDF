@@ -6,7 +6,6 @@ import { db } from '@/lib/db';
 import { chats, messages as messagesDB } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
-import { getEmbedding } from '@/lib/embeddings';
 
 //connect to openai api when chatting
 export const runtime = 'edge';
@@ -27,7 +26,7 @@ export async function POST(req: Request) {
     const fileKey = _chats[0].fileKey;
 
     const lastMessage = messages[messages.length - 1].content;
-    const { text, baseScore } = await getContext(lastMessage, fileKey);
+    const { text } = await getContext(lastMessage, fileKey);
     const prompt = {
       role: 'system',
       content: `
