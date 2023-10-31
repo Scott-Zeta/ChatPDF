@@ -31,6 +31,10 @@ const updateLogEntries: LogEntry[] = [
       'synchronization bug fix',
     ],
   },
+  {
+    date: '31/10/2023',
+    updates: ['Fix the ChatList update problem'],
+  },
   // ...more entries
 ];
 

@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { MessageCircle, PlusCircle, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import GoPro from './GoPro';
 import {
@@ -74,6 +74,9 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
       setIsDeleting(false);
     }
   };
+  useEffect(() => {
+    router.refresh();
+  }, [chatId, router]);
   return (
     <div className="w-full h-screen p-4 text-gray-200 bg-gray-900 flex flex-col">
       <Dialog>
