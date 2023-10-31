@@ -6,7 +6,6 @@ import { db } from '@/lib/db';
 import { chats, messages as messagesDB } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
-import { getEmbedding } from '@/lib/embeddings';
 
 //connect to openai api when chatting
 export const runtime = 'edge';

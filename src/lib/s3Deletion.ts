@@ -18,7 +18,7 @@ export async function deleteFromS3(file_key: string) {
       Key: file_key,
     };
     await s3.deleteObject(params).promise();
-    console.log('Delete Completed', file_key);
+    // console.log('Delete Completed', file_key);
   } catch (error) {
     console.error('Fail to delete from S3', error);
   }
