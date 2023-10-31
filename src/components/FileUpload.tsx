@@ -80,7 +80,6 @@ const FileUpload = () => {
           title: 'Chat creation failed',
           description: `${error}`,
         });
-      } finally {
         setUploading(false);
       }
     },
