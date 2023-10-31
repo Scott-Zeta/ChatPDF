@@ -38,11 +38,11 @@ const FileUpload = () => {
     onDrop: async (acceptedFiles) => {
       const file = acceptedFiles[0];
       if (file.size > 10 * 1024 * 1024) {
-        toast({
-          variant: 'destructive',
-          title: 'Upload failed',
-          description: 'File size must be less than 10MB',
-        });
+        // toast({
+        //   variant: 'destructive',
+        //   title: 'Upload failed',
+        //   description: 'File size must be less than 10MB',
+        // });
         return;
       }
 
@@ -51,35 +51,35 @@ const FileUpload = () => {
         setUploading(true);
         const data = await uploadToS3(file);
         if (!data?.file_key || !data?.file_name) {
-          toast({
-            variant: 'destructive',
-            title: 'Upload failed',
-            description: 'Could not get valid file key or file name',
-          });
+          // toast({
+          //   variant: 'destructive',
+          //   title: 'Upload failed',
+          //   description: 'Could not get valid file key or file name',
+          // });
           return;
         }
         mutate(data, {
           onSuccess: (data) => {
-            toast({
-              title: 'Upload Complete',
-              description: 'You will soon be redirected to the chat',
-            });
+            // toast({
+            //   title: 'Upload Complete',
+            //   description: 'You will soon be redirected to the chat',
+            // });
             router.push(`/chat/${data.chat_id}`);
           },
           onError: (error) => {
-            toast({
-              variant: 'destructive',
-              title: 'Can not fetching Data',
-              description: `${error}`,
-            });
+            // toast({
+            //   variant: 'destructive',
+            //   title: 'Can not fetching Data',
+            //   description: `${error}`,
+            // });
           },
         });
       } catch (error) {
-        toast({
-          variant: 'destructive',
-          title: 'Chat creation failed',
-          description: `${error}`,
-        });
+        // toast({
+        //   variant: 'destructive',
+        //   title: 'Chat creation failed',
+        //   description: `${error}`,
+        // });
       } finally {
         setUploading(false);
       }
