@@ -61,7 +61,8 @@ export default async function Home() {
 
           <div className="w-full mt-4">
             {isauthenticated ? (
-              <FileUpload />
+              // <FileUpload />
+              <p>upload place holder</p>
             ) : (
               <Link href="/sign-in">
                 <Button>Sign-In to get Start</Button>
