@@ -31,64 +31,70 @@ const FileUpload = () => {
     },
   });
 
-  // const { getRootProps, getInputProps } = useDropzone({
-  //   accept: { 'application/pdf': ['.pdf'] },
-  //   // accept: { 'application/pdf': ['.pdf'], 'text/plain': ['.txt'] },
-  //   maxFiles: 1,
-  //   onDrop: async (acceptedFiles) => {
-  //     const file = acceptedFiles[0];
-  //     if (file.size > 10 * 1024 * 1024) {
-  //       toast({
-  //         variant: 'destructive',
-  //         title: 'Upload failed',
-  //         description: 'File size must be less than 10MB',
-  //       });
-  //       return;
-  //     }
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { 'application/pdf': ['.pdf'] },
+    // accept: { 'application/pdf': ['.pdf'], 'text/plain': ['.txt'] },
+    maxFiles: 1,
+    onDrop: async (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (file.size > 10 * 1024 * 1024) {
+        toast({
+          variant: 'destructive',
+          title: 'Upload failed',
+          description: 'File size must be less than 10MB',
+        });
+        return;
+      }
 
-  //     //call function upload to s3
-  //     try {
-  //       setUploading(true);
-  //       const data = await uploadToS3(file);
-  //       if (!data?.file_key || !data?.file_name) {
-  //         toast({
-  //           variant: 'destructive',
-  //           title: 'Upload failed',
-  //           description: 'Could not get valid file key or file name',
-  //         });
-  //         return;
-  //       }
-  //       mutate(data, {
-  //         onSuccess: (data) => {
-  //           toast({
-  //             title: 'Upload Complete',
-  //             description: 'You will soon be redirected to the chat',
-  //           });
-  //           router.push(`/chat/${data.chat_id}`);
-  //         },
-  //         onError: (error) => {
-  //           console.error(error);
-  //           toast({
-  //             variant: 'destructive',
-  //             title: 'Can not fetching Data',
-  //             description: `${error}`,
-  //           });
-  //         },
-  //       });
-  //     } catch (error) {
-  //       toast({
-  //         variant: 'destructive',
-  //         title: 'Chat creation failed',
-  //         description: `${error}`,
-  //       });
-  //       setUploading(false);
-  //     }
-  //   },
-  // });
+      //call function upload to s3
+      try {
+        setUploading(true);
+        const data = await uploadToS3(file);
+        if (!data?.file_key || !data?.file_name) {
+          toast({
+            variant: 'destructive',
+            title: 'Upload failed',
+            description: 'Could not get valid file key or file name',
+          });
+          return;
+        }
+        mutate(data, {
+          onSuccess: (data) => {
+            toast({
+              title: 'Upload Complete',
+              description: 'You will soon be redirected to the chat',
+            });
+            router.push(`/chat/${data.chat_id}`);
+          },
+          onError: (error) => {
+            console.error(error);
+            toast({
+              variant: 'destructive',
+              title: 'Can not fetching Data',
+              description: `${error}`,
+            });
+          },
+        });
+      } catch (error) {
+        toast({
+          variant: 'destructive',
+          title: 'Chat creation failed',
+          description: `${error}`,
+        });
+        setUploading(false);
+      }
+    },
+  });
   return (
     <div className="p-2 bg-white rounded-xl">
-      <div>
-        <input />
+      <div
+        {...getRootProps({
+          className:
+            'border-dashed border-2 rounded-xl cursor-pointer bg-gray-50 py-8 flex justify-center items-center flex-col',
+          onClick: uploading ? (event) => event.stopPropagation() : undefined,
+        })}
+      >
+        <input {...getInputProps()} />
         {uploading ? (
           <>
             <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
