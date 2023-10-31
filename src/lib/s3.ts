@@ -26,17 +26,14 @@ export async function uploadToS3(file: File) {
     //on.() is a listener that will listen to the event, to monitor the upload progress
     const upload = s3
       .putObject(params)
-      .on('httpUploadProgress', (e) => {
-        // console.log(
-        //   `Upload Progress: ${Math.round((e.loaded / e.total) * 100)}%`
-        // );
-      })
+      // .on('httpUploadProgress', (e) => {
+      //   // console.log(
+      //   //   `Upload Progress: ${Math.round((e.loaded / e.total) * 100)}%`
+      //   // );
+      // })
       .promise();
 
     //.promise() will return a promise, so we can use .then() and .catch()
-    await upload.then(() => {
-      // console.log('S3 Upload Completed', file_key);
-    });
 
     return Promise.resolve({
       file_key,
@@ -46,6 +43,7 @@ export async function uploadToS3(file: File) {
     });
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
 
