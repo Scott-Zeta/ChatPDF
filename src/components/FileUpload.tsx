@@ -87,7 +87,7 @@ const FileUpload = () => {
   });
   return (
     <div className="p-2 bg-white rounded-xl">
-      <div
+      {/* <div
         {...getRootProps({
           className:
             'border-dashed border-2 rounded-xl cursor-pointer bg-gray-50 py-8 flex justify-center items-center flex-col',
@@ -108,7 +108,7 @@ const FileUpload = () => {
             <p className="mt-2 text-sm text-slate-400">Drop PDF Here</p>
           </>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
