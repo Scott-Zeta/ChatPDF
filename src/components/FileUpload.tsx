@@ -67,7 +67,6 @@ const FileUpload = () => {
             router.push(`/chat/${data.chat_id}`);
           },
           onError: (error) => {
-            console.error(error);
             toast({
               variant: 'destructive',
               title: 'Can not fetching Data',
@@ -81,6 +80,7 @@ const FileUpload = () => {
           title: 'Chat creation failed',
           description: `${error}`,
         });
+      } finally {
         setUploading(false);
       }
     },
