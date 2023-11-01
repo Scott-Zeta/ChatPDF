@@ -1,11 +1,10 @@
 'use client';
-import { interval } from 'drizzle-orm/pg-core';
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 type Props = { pdf_url: string };
 
 const PDFViewer = ({ pdf_url }: Props) => {
-  const [iframeTimeoutId, setIframeTimeoutId] = useState<any>();
+  const [iframeTimeoutId, setIframeTimeoutId] = useState<any>(); // a pointer to the interval
   const [intervalTime, setIntervalTime] = useState<number>(1000 * 3); //start from 3 seconds
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isFail, setIsFail] = useState<boolean>(false);
@@ -24,7 +23,7 @@ const PDFViewer = ({ pdf_url }: Props) => {
       setIsFail(true);
       return;
     }
-    updateIframeSrc();
+    updateIframeSrc(); //if failed, try again with new interval time
   };
 
   const updateIframeSrc = useCallback(() => {

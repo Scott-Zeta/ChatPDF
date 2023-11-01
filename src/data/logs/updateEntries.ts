@@ -35,6 +35,10 @@ const updateLogEntries: LogEntry[] = [
     date: '31/10/2023',
     updates: ['Fix the ChatList update problem'],
   },
+  {
+    date: '01/11/2023',
+    updates: ['Fix Document preview 204 blank page problem'],
+  },
   // ...more entries
 ];
 
