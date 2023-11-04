@@ -8,6 +8,7 @@ import { db } from '@/lib/db';
 import { chats } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import ManageSubscription from '@/components/ManageSubscription';
+import UserGuide from '@/components/UserGuide';
 
 export default async function Home() {
   const { userId }: { userId: string | null } = await auth();
@@ -68,6 +69,7 @@ export default async function Home() {
               </Link>
             )}
           </div>
+          <UserGuide />
         </div>
       </div>
     </div>
