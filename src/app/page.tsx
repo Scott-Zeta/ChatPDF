@@ -30,7 +30,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
+    <div className="flex flex-col w-screen h-full min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
       <Header />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/5">
         <div className="flex flex-col items-center text-center">
@@ -70,7 +70,9 @@ export default async function Home() {
             )}
           </div>
         </div>
-        <UserGuide />
+        <div className="flex justify-center">
+          <UserGuide />
+        </div>
       </div>
     </div>
   );
