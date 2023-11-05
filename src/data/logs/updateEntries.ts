@@ -39,6 +39,10 @@ const updateLogEntries: LogEntry[] = [
     date: '01/11/2023',
     updates: ['Fix Document preview 204 blank page problem'],
   },
+  {
+    date: '05/11/2023',
+    updates: ['Add the user guide'],
+  },
   // ...more entries
 ];
 
