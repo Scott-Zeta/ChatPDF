@@ -94,7 +94,7 @@ const UserGuide = (props: Props) => {
     },
   ];
   return (
-    <Accordion type="single" collapsible className="w-5/6">
+    <Accordion type="single" collapsible className="w-full">
       {content.map(({ value, question, answer }) => {
         return (
           <AccordionItem value={value} key={value}>

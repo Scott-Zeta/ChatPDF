@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import { checkSubscription } from '@/lib/checkSubscription';
 import React from 'react';
 import FileUpload from '@/components/FileUpload';
+import UserGuide from '@/components/UserGuide';
 
 type Props = {
   params: {
@@ -42,8 +43,8 @@ const newPage = async ({ params: { chatId } }: Props) => {
             </div>
           </div>
         </div>
-        <div className="flex-[4] border-l-4 border-l-slate-200">
-          <p>Further would be some pictures like user guide</p>
+        <div className="flex-[4] border-l-4 border-l-slate-200 px-2">
+          <UserGuide />
         </div>
       </div>
     </div>

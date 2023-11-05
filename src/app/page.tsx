@@ -70,7 +70,7 @@ export default async function Home() {
             )}
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex px-2">
           <UserGuide />
         </div>
       </div>
