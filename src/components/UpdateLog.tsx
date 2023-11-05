@@ -22,7 +22,7 @@ const UpdateLog = (props: Props) => {
           <DialogTitle>Change Log</DialogTitle>
         </DialogHeader>
         <div className="h-96 border-dashed border-2 rounded-lg overflow-auto p-2">
-          {updateLogEntries.map((entry) => (
+          {updateLogEntries.reverse().map((entry) => (
             <div className="mb-2" key={entry.date}>
               <h1 className="text-gray-800 font-semibold">{entry.date}</h1>
               <ul className="list-disc list-inside">
