@@ -38,11 +38,11 @@ const FileUpload = () => {
     onDrop: async (acceptedFiles) => {
       const file = acceptedFiles[0];
       if (file.size > 10 * 1024 * 1024) {
-        // toast({
-        //   variant: 'destructive',
-        //   title: 'Upload failed',
-        //   description: 'File size must be less than 10MB',
-        // });
+        toast({
+          variant: 'destructive',
+          title: 'Upload failed',
+          description: 'File size must be less than 10MB',
+        });
         return;
       }
 
