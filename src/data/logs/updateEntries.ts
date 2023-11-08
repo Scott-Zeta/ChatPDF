@@ -43,6 +43,12 @@ const updateLogEntries: LogEntry[] = [
     date: '05/11/2023',
     updates: ['Add the user guide'],
   },
+  {
+    date: '08/11/2023',
+    updates: [
+      'Limit Every user can only have 3 chats at the same time, to restrict the AWS upload',
+    ],
+  },
   // ...more entries
 ];
 
