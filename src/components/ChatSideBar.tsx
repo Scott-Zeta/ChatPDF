@@ -44,6 +44,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
     try {
       setIsDeleting(true);
       const res = await axios.delete('/api/delete', { data: { chatId } });
+      //this status handler actually is not working for axios
       if (res.status === 200) {
         router.push('/chat/new');
         toast({

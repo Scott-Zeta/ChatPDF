@@ -8,6 +8,7 @@ import axios from 'axios';
 //call the toast without using toast hooks
 import { toast } from './ui/use-toast';
 import { useRouter } from 'next/navigation';
+import { checkChatLimit } from '@/lib/checkChatLimit';
 
 const FileUpload = () => {
   const router = useRouter();
@@ -49,6 +50,10 @@ const FileUpload = () => {
       //call function upload to s3
       try {
         setUploading(true);
+        if (!(await checkChatLimit())) {
+          setUploading(false);
+          return;
+        }
         const data = await uploadToS3(file);
         if (!data?.file_key || !data?.file_name) {
           await toast({
