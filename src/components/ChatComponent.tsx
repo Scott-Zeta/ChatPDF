@@ -35,8 +35,9 @@ const ChatComponent = ({ chatId }: Props) => {
         toast({
           variant: 'destructive',
           title: 'Limitation Exceeded',
-          description:
-            'Currently you can only send 10 messages every 24 hours, Please come back later.',
+          description: `Currently you can only send ${process.env
+            .MAX_TOKENS!} messages every ${process.env
+            .TOKEN_CYCLE!} hours, Please come back later.`,
         });
       } else if (err.message.includes('unauthorized')) {
         toast({

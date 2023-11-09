@@ -17,7 +17,7 @@ export const GET = async (req: Request) => {
 
     const chatNumber = _chats.length;
 
-    if (chatNumber >= 3) {
+    if (chatNumber >= parseInt(process.env.MAX_CHATS!)) {
       return new NextResponse('You have reached the maximum number of chats', {
         status: 403,
       });
