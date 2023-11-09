@@ -29,6 +29,9 @@ const ChatComponent = ({ chatId }: Props) => {
       chatId,
     },
     initialMessages: data || [],
+    onError: (err) => {
+      console.log(err);
+    },
   });
 
   return (

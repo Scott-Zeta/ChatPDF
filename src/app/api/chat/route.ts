@@ -3,12 +3,28 @@ import { Configuration, OpenAIApi } from 'openai-edge';
 import { OpenAIStream, StreamingTextResponse, Message } from 'ai';
 import { getContext } from '@/lib/context';
 import { db } from '@/lib/db';
-import { chats, messages as messagesDB } from '@/lib/db/schema';
+import { chats, messages as messagesDB, tokenRecords } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
+import { tokenVerify } from '@/lib/tokenVerify';
 
 //connect to openai api when chatting
 export const runtime = 'edge';
+
+class TokenLimitError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'TokenLimitError';
+  }
+}
+
+class unauthorizedError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'unauthorizedError';
+  }
+}
 
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -19,6 +35,16 @@ const openai = new OpenAIApi(config);
 export async function POST(req: Request) {
   try {
     const { messages, chatId } = await req.json();
+    const { userId } = await auth();
+    if (!userId) {
+      throw new unauthorizedError('unauthorized');
+    }
+    //verify the user tokend if more than 10 times in 24 hours
+    const { permission, expiredToken } = await tokenVerify(userId!);
+    if (!permission) {
+      throw new TokenLimitError('token limit');
+    }
+
     const _chats = await db.select().from(chats).where(eq(chats.id, chatId));
     if (_chats.length != 1) {
       return NextResponse.json({ error: 'chat not found' }, { status: 404 });
@@ -64,10 +90,17 @@ export async function POST(req: Request) {
           content: completion,
           role: 'system',
         });
+
+        await db.insert(tokenRecords).values({
+          userId,
+        });
       },
     });
     return new StreamingTextResponse(stream);
   } catch (error) {
     console.error(error);
+    if (error instanceof TokenLimitError) {
+      return NextResponse.json({ error: 'token limit' }, { status: 429 });
+    }
   }
 }
