@@ -23,7 +23,7 @@ export const tokenVerify = async (userId: string) => {
         expired.push(record.id);
       }
     });
-    if (count < 3) {
+    if (count < 10) {
       return { permission: true, expiredToken: expired };
     } else {
       return { permission: false, expiredToken: expired };

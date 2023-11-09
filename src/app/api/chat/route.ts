@@ -102,5 +102,8 @@ export async function POST(req: Request) {
     if (error instanceof TokenLimitError) {
       return NextResponse.json({ error: 'token limit' }, { status: 429 });
     }
+    if (error instanceof unauthorizedError) {
+      return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+    }
   }
 }
