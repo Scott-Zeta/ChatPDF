@@ -49,6 +49,12 @@ const updateLogEntries: LogEntry[] = [
       'Limit Every user can only have 3 chats at the same time, to restrict the AWS upload',
     ],
   },
+  {
+    date: '09/11/2023',
+    updates: [
+      'Limit Every user can only send 20 messages every 24 hours, to restrict the API call',
+    ],
+  },
   // ...more entries
 ];
 

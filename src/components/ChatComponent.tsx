@@ -8,6 +8,7 @@ import MessageList from './MessageList';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Message } from 'ai';
+import { toast } from './ui/use-toast';
 
 type Props = { chatId: number };
 
@@ -29,6 +30,31 @@ const ChatComponent = ({ chatId }: Props) => {
       chatId,
     },
     initialMessages: data || [],
+    onError: (err) => {
+      if (err.message.includes('token limit')) {
+        toast({
+          variant: 'destructive',
+          title: 'Limitation Exceeded',
+          description: `Currently you can only send ${process.env
+            .MAX_TOKENS!} messages every ${process.env
+            .TOKEN_CYCLE!} hours, Please come back later.`,
+        });
+      } else if (err.message.includes('unauthorized')) {
+        toast({
+          variant: 'destructive',
+          title: 'Unauthorized',
+          description:
+            'You log-in has expired, please log-in again to continue.',
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Internal Server Error',
+          description:
+            'Currently can not process your request, please try again later.',
+        });
+      }
+    },
   });
 
   return (
