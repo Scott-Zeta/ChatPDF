@@ -8,6 +8,7 @@ import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs';
 import { tokenVerify } from '@/lib/tokenVerify';
+import { tokenCleanUp } from '@/lib/tokenCleanUp';
 
 //connect to openai api when chatting
 export const runtime = 'edge';
@@ -41,6 +42,11 @@ export async function POST(req: Request) {
     }
     //verify the user tokend if more than 10 times in 24 hours
     const { permission, expiredToken } = await tokenVerify(userId!);
+    /*clean up expired token records
+      without await can make it run asynchronously, without delay the response,
+      record failed to be deleted will be checked again in next request
+    */
+    tokenCleanUp(expiredToken);
     if (!permission) {
       throw new TokenLimitError('token limit');
     }

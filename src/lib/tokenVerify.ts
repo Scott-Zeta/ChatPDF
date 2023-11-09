@@ -16,14 +16,14 @@ export const tokenVerify = async (userId: string) => {
 
     records.forEach((record) => {
       if (
-        new Date(record.createdAt) > new Date(Date.now() - 24 * 60 * 60 * 1000)
+        new Date(record.createdAt) > new Date(Date.now() - 1 * 60 * 60 * 1000)
       ) {
         count += 1;
       } else {
         expired.push(record.id);
       }
     });
-    if (count < 10) {
+    if (count < 3) {
       return { permission: true, expiredToken: expired };
     } else {
       return { permission: false, expiredToken: expired };
