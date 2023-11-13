@@ -79,7 +79,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
     router.refresh();
   }, [chatId, router]);
   return (
-    <div className="w-full h-screen p-4 text-gray-200 bg-gray-900 flex flex-col">
+    <div className="w-full h-screen p-4 text-gray-200 bg-gray-900 flex flex-col overflow-scroll">
       <Dialog>
         <DialogTrigger asChild>
           <Button className="w-full border-dashed border-white border">
@@ -97,7 +97,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
         </DialogContent>
       </Dialog>
 
-      <div className="flex pb-2 flex-col gap-2 my-4 overflow-scroll">
+      <div className="flex pb-2 flex-col gap-2 my-4">
         {chats.map((chat) => (
           <Link key={chat.id} href={`/chat/${chat.id}`}>
             <div
