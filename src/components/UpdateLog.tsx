@@ -12,6 +12,7 @@ import updateLogEntries from '@/data/logs/updateEntries';
 type Props = {};
 
 const UpdateLog = (props: Props) => {
+  const logs = [...updateLogEntries].reverse();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -22,7 +23,7 @@ const UpdateLog = (props: Props) => {
           <DialogTitle>Change Log</DialogTitle>
         </DialogHeader>
         <div className="h-96 border-dashed border-2 rounded-lg overflow-auto p-2">
-          {updateLogEntries.reverse().map((entry) => (
+          {logs.map((entry) => (
             <div className="mb-2" key={entry.date}>
               <h1 className="text-gray-800 font-semibold">{entry.date}</h1>
               <ul className="list-disc list-inside">

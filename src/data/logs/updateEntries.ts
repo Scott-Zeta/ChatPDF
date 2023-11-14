@@ -55,6 +55,13 @@ const updateLogEntries: LogEntry[] = [
       'Limit Every user can only send 20 messages every 24 hours, to restrict the API call',
     ],
   },
+  {
+    date: '14/11/2023',
+    updates: [
+      'Relocate the server to Singapore, performace should be hight improved',
+      'Bug fix to updatelogs, prevent it from been reverse every time',
+    ],
+  },
   // ...more entries
 ];
 
