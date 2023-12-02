@@ -62,6 +62,10 @@ const updateLogEntries: LogEntry[] = [
       'Bug fix to updatelogs, prevent it from been reverse every time',
     ],
   },
+  {
+    date: '02/12/2023',
+    updates: ['Fix the service sync issue might happen ocassionally'],
+  },
   // ...more entries
 ];
 
