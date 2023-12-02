@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm';
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 import { chats } from '@/lib/db/schema';
+import { type } from 'os';
 
 export const GET = async (req: Request) => {
   try {
@@ -17,7 +18,7 @@ export const GET = async (req: Request) => {
 
     const chatNumber = _chats.length;
 
-    if (chatNumber >= parseInt(process.env.MAX_CHATS!)) {
+    if (chatNumber >= parseInt(process.env.MAX_CHATS_NUMBER!)) {
       return new NextResponse('You have reached the maximum number of chats', {
         status: 403,
       });
