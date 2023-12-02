@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
 import fs from 'fs';
 
-export async function downloadFromS3(file_key: string) {
+export async function downloadFromS3(file_key: string, retry = 0) {
   try {
     AWS.config.update({
       accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
@@ -17,6 +17,7 @@ export async function downloadFromS3(file_key: string) {
       Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
       Key: file_key,
     };
+
     //get the file from the s3 bucket
     const obj = await s3.getObject(params).promise();
     //save the file to the local(server) storage
