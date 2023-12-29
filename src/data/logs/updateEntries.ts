@@ -66,6 +66,12 @@ const updateLogEntries: LogEntry[] = [
     date: '02/12/2023',
     updates: ['Fix the service sync issue might happen ocassionally'],
   },
+  {
+    date: '29/12/2023',
+    updates: [
+      'Refactor the PDF viewer, by switching to embed element. Not rely on Google service anymore.(Previous file might not be able to preview correctly)',
+    ],
+  },
   // ...more entries
 ];
 
