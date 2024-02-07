@@ -72,6 +72,12 @@ const updateLogEntries: LogEntry[] = [
       'Refactor the PDF viewer, by switching to embed element. Not rely on Google service anymore.(Previous file might not be able to preview correctly)',
     ],
   },
+  {
+    date: '7/02/2024',
+    updates: [
+      'Update the langchain to the latest version, solve some documents can not be correctly parsed issue',
+    ],
+  },
   // ...more entries
 ];
 
