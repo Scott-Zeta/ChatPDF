@@ -73,10 +73,14 @@ const updateLogEntries: LogEntry[] = [
     ],
   },
   {
-    date: '7/02/2024',
+    date: '07/02/2024',
     updates: [
       'Update the langchain to the latest version, solve some documents can not be correctly parsed issue',
     ],
+  },
+  {
+    date: '05/05/2024',
+    updates: ['Update env variables, due to Pincone service update.'],
   },
   // ...more entries
 ];
