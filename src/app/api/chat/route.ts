@@ -75,7 +75,7 @@ export async function POST(req: Request) {
       (message: Message) => message.role === 'user'
     );
     const response = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4o-mini',
       messages: [prompt, userMessage[userMessage.length - 1]],
       //stream will generate reponse one by one word
       stream: true,

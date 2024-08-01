@@ -82,6 +82,12 @@ const updateLogEntries: LogEntry[] = [
     date: '05/05/2024',
     updates: ['Update env variables, due to Pincone service update.'],
   },
+  {
+    date: '01/08/2024',
+    updates: [
+      'Upgrade to OpenAI model from gpt-3.5-turbo to gpt-4o-mini. With faster response time and better performance.',
+    ],
+  },
   // ...more entries
 ];
 
